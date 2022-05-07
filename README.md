@@ -1,8 +1,10 @@
-## Repositório de anotações e códigos do curso de ADS que estou fazendo.
+# Repositório de anotações e códigos do curso de ADS que estou fazendo.
 
-# Matérias presentes no repositório:
+## Matérias presentes no repositório:
 
-. Algoritmos e Lógica de Programação II
+1 - Algoritmos e Lógica de Programação II      
 * Linguagem utilizada: C
-. Banco de Dados
-. Engenharia de Software
+
+2 - Banco de Dados
+
+3 - Engenharia de Software
