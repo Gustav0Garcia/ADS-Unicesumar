@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 main() {
-    int *ptr;
+    int* ptr;
 
     printf("Endereco: %p\n\n", ptr);
 

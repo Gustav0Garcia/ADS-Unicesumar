@@ -266,3 +266,49 @@ A saída esperada para o algoritimo:
 &nbsp;
 
 ## **Criando Vetores Dinâmicos**
+
+&nbsp;
+
+Para evitar o problma de reservar mais espa~p do que realmentye precisamos e não ficarmos limitados a quantidade previamente estipulada de posições do vetor, ``utilizamos vetores dinâmmicos``
+
+``Exemplo``
+
+Na função **main()**, vamos criar uma variável **tam** do tipo inteiro para ler o tamanho do vetor e uma variável do tipo pontyeiro chamado **vetor**, que será criada de forma dinâmica de acordo com o valor lido na variável **tam**
+
+````c
+int tam;
+int *vetor;
+
+printf("Escolha o tamanho do vetor: ");
+scanf("%d", &tam);
+
+vetor = (int *) malloc(sizeof (int) *tam);
+````
+
+O processo de alocação de um vetor usando ``malloc`` é muito parecido com o de uma variável simples, basta multiplicar o tipo definido em ``sizeof`` pela quantidade de posições que deseja para o vetor.
+
+``Código completo do exemplo:``
+
+````c
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+main(){
+
+int tam;
+int *vetor;
+
+printf("Escolha o tamanho do vetor: ");
+scanf("%d", &tam);
+
+vetor = (int *) malloc(sizeof (int) * tam);
+
+for (int i = 0; i < tam; i++){
+    vetor[i] = pow(2, i);
+    printf("Posicao %d: %d\n", i, vetor[i]);
+}
+system("Pause");
+return(0);
+}
+````
