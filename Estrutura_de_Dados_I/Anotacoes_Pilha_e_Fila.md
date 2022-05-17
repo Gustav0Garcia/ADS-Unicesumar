@@ -113,4 +113,141 @@ void pilha_entrar(){
 ````
 &nbsp;
 
-Para o desempilhamento...
+Para o desempilhamento, usaremos a função **pilha_sair()**. A remoção se da pelo elemento **fim - 1** do vetor **dados**, o atributo **fim** aponta para a p´rimeira posição livre e queremos o valor diretamente anterior.
+
+``Após a remoção do item, o valor de fim deve ser atualizado para apontar corretamente para o final da pilha que acabou de diminuir``.
+
+````c
+//Retirar o último elemento da Pilha
+void pilha_sair(){
+    pilha.dados[pilha.fim-1] = 0;
+    pilha.fim--;
+}
+````
+
+&nbsp;
+
+``Os vetores não trabalham com índice negativo, e se muitos elementos forem removidos, além da capacidade do vetor, o valor de fim iria diminuir até passar a ser um valor negativo, havendo nova inclusão de valor, iria ser colocado em posição inválida e seria perdido``
+
+É necessário fazer um controle antes da remoção para verificar se a pilha está vazia.
+
+Deve ser feito a comparação do valor **ini** com **fim**.`` Se forem iguais, significa que a pilha está vazia e que nenhum valor pode ser removido``.
+
+````c
+//Retirar o último elemento da Pilha
+void pilha_sair(){
+    if(pilha.ini == pilha.fim){
+        printf("\nA Pilha está vazia, não há nada para desempilhar!\n\n");
+        system("Pause");
+    }
+    else{
+        pilha.dados[pilha.fim-1] = 0
+        pilha.fim--;
+    }
+}
+````
+
+&nbsp;
+
+``Código-fonte completo da pilha``:
+
+````c
+#include <stdio.h>
+#include <stdlib.h >
+#include <locale.h>
+
+//Contante parao tamanho da pilha
+#define tamanho 5
+
+//Registro de estrutura para criar o "tipo pilha" constando com um vetor para armazenar os dados e dois números inteiros para controlar o inínico e o fim da pilha
+struct tpilha{
+    int dados[tamanho];
+    int ini;
+    int fim;
+};
+
+//Variáveis globais
+struct tpilha pilha;
+int op;
+
+//Prototipação
+void pilha_entrar();
+void pilha_sair();
+void pilha_mostrar();
+void menu_mostrar();
+
+//Função principal
+int main(){
+
+    setlocale(LC_ALL, "Portuguese"); //Configurar idioma em português e permitir acentuação
+
+    op = 1;
+    pilha.ini = 0;
+    pilha.fim = 0;
+
+    while(op != 0){
+        system("cls");
+        pilha_mostrar();
+        menu_mostrar();
+        scanf("%d", &op);
+        switch(op){
+            case 1:
+                pilha_entrar();
+            break;
+            case 2:
+                pilha_sair();
+            break;
+        }
+    }
+    return(0);
+}
+
+//Adiciohnar um elemento no final da Pilha
+void pilha_entrar(){
+    if(pilha.fim == tamanho){
+        printf("\nA pilha está cheia, impossível empilhar!\n\n");
+    }
+    else{
+        printf("\nDigite o valor a ser empilhado: ");
+        scanf("%d", &pilha.dados[pilha.fim]);
+        pilha.fim++;
+    }
+}
+
+//Retirar o último elemendo da Pilha
+void pilha_sair(){
+    if(pilha.ini == pilha.fim){
+        printf("\nA pilha está vazia, impossível desempilhar\n\n");
+        system("Pause");
+    }
+    else{
+        pilha.dados[pilha.fim-1] = 0;
+        pilha.fim--;
+    }
+}
+
+//Mostrar o conteúdo da Pilha
+void pilha_mostrar(){
+    int i;
+    printf("[ ");
+    for(i = 0; i < tamanho; i++){
+        printf("%d", pilha.dados[i]);
+    }
+    printf("]\n\n");
+}
+
+//Mostrar o menu de opções
+void menu_mostrar(){
+    printf("\nEscolha uma opção:\n");
+    printf("1 - Empilhar\n");
+    printf("2 - Desempilhar\n");
+    printf("3 - Sair\n\n");
+}
+````
+
+&nbsp;
+
+## **Fila**
+
+&nbsp;
+
