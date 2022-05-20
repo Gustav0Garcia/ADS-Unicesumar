@@ -251,3 +251,117 @@ void menu_mostrar(){
 
 &nbsp;
 
+Conceito básico da Fila é o ``FIFO`` (``First In, First Out``), traduzindo, Primeiro que Entra é o Primeiro que sai.
+
+Na programação, a primeira coisa que precisamos é definir a sua estrutura. Usaremos um **vetor** para armazenar os valores que serão enfileirados e dois números inteiros para fazer o controle de início e fim da fila. Usaremos também uma constante para definir a capacidade de armazenamento.
+
+````c
+//Contante
+#define tamanho 5
+
+//Estrutura da Fila
+struct tfila{
+    int dados [tamanho];
+    int ini;
+    int fim;
+};
+
+// Variáveis globais
+struct tfila fila;
+````
+
+&nbsp;
+
+Vamos criar uma função chamada **fila_entrar()**, para acompanhar a entrada de novos valores na fila
+
+A primeira coisa a fazer, é verificar se há espaço, podendo ser feito comparando o atributo **fim** com a constante **tamanho**. Caso haja uma posição livre, o valor será inserido no vetor **dados** na posição **fim** e finalmente o valor de **fim** é incrementado em um.
+
+````c
+//Adicionar um elemento no final da Fila
+void fila_entrar(){
+    if (fila.fim == tamanho){
+        printf("A fila está cheia, impossível adicionar um novo valor!\n\n");
+        system("Pause");
+    }
+    else{
+        printf("\n Digite o valor a ser inserido: "");
+        scanf("%d", &fila.dados[fila.fim]);
+        fila.fim++;
+    }
+}
+````
+
+&nbsp;
+
+A diferença entre a Pilha e a Fila está em sua forma de saída. Na Pilha sai sempre o elemento mais recente, na Fila sai sempre o mais antigo. ``Assim como na Pilha, é necessário fazer uma verificação na Fila para saber se ainda existe algum elemento a sere removido``.
+
+````c
+//Retirar o primeiro elemento da Fila
+void fila_sair(){
+    if(fila.ini == fila.fim){
+        printf("\nA fila está vazia, não há nada para remover!\n\n");
+        system("Pause");
+    }
+}
+````
+
+&nbsp;
+
+``Como o primeiro elemento da fila será removido, os demais precisam andar em direção ao início. Em seguida. atualizamos o valor do atributo fim para apontar corretamente para o final da fila``.
+
+````c
+int i;
+
+for(i = 0; i < tamanho; i++){
+    fila.dados[i] = fila.dados[i+1];
+}
+fila.dados[fila.fim] = 0;
+fila.fim--;
+````
+
+&nbsp;
+
+A função **fila_sair()** completa:
+
+````c
+//Retirar o primeiro elemento da Fila
+void fila_sair(){
+    if(fila.ini == fila.fim){
+        printf("\nA fila está vazia, não há nada para remover!\n\n");
+        system("Pause");
+    }
+    else{
+        int i;
+        for(i = 0; i < tamanho; i++){
+            fila.dados[i] = fila.dados[i+1];
+        }
+        fila.dados[fila.fim] = 0;
+        fila.fim--;
+    }
+}
+````
+
+&nbsp;
+
+Finalizando, a função **fila_mostrar()**, que possui um laço de repetição que percorre todo o vetor de **dados** e imprime os valores na tela.
+
+````c
+//Mostrar o conteúdo da Fila
+void fila_mostrar(){
+    int i;
+    printf("[");
+    for(i = 0; i < tamanho; i++){
+        printf("%d", fila.dados[i]);
+    }
+}
+````
+
+&nbsp;
+
+Existem outras aformas de Filas, como por exemplo, a Fila Cíclica, que ao invés de mover os dados para a esquerda sempre que a posição fica livre, move-se o atributo que marca o início da fila para a direita.
+
+&nbsp;
+
+``Código completo da Fila``:
+
+
