@@ -48,7 +48,7 @@ int main(){
     return(0);
 }
 
-//Adiciohnar um elemento no final da Pilha
+//Adicionar um elemento no final da Pilha
 void pilha_entrar(){
     if(pilha.fim == tamanho){
         printf("\nA pilha está cheia, impossível empilhar!\n\n");
