@@ -8,7 +8,7 @@
 
 É uma das estruturas mais imples e mais versáteis dentre as itulizadas na computação.
 
-``Na informática, a pilha é uma etrutura em que os fados são inseridos e removidos no seu topo``
+``Na informática, a pilha é uma etrutura em que os dados são inseridos e removidos no seu topo``
 
 São estruturas conhecidas como  ***Last In, First Out (LIFO)***
 
@@ -24,7 +24,7 @@ Agora serão inseridos 14 e 2:
 
 O valor mais a esquerda é o começo da pilha, o lado oposto é o final e todos os valores vão entrando na primeira casa livre à direita. ``Esse é o processo de empilhamento, em que cada novo valor é inserido "em cima" dos valores previamente inseridos (empilhados)``.
 
-``Quando houver remoção de valor, o valor removido será o último valord a pilha``:
+``Quando houver remoção de valor, o valor removido será o último valor da pilha``:
 
 [ 1 ][ 5 ][ 12 ][ 3 ][ 14 ][  ][ ][ ][ ][ ]
 
@@ -293,7 +293,7 @@ void fila_entrar(){
 
 &nbsp;
 
-A diferença entre a Pilha e a Fila está em sua forma de saída. Na Pilha sai sempre o elemento mais recente, na Fila sai sempre o mais antigo. ``Assim como na Pilha, é necessário fazer uma verificação na Fila para saber se ainda existe algum elemento a sere removido``.
+A diferença entre a Pilha e a Fila está em sua forma de saída. Na Pilha sai sempre o elemento mais recente, na Fila sai sempre o mais antigo. ``Assim como na Pilha, é necessário fazer uma verificação na Fila para saber se ainda existe algum elemento a ser removido``.
 
 ````c
 //Retirar o primeiro elemento da Fila
@@ -461,3 +461,4 @@ void menu_mostrar(){
     printf("2 - Excluir da Fila\n");
     printf("0 - Sair\n\n");
 }
+````

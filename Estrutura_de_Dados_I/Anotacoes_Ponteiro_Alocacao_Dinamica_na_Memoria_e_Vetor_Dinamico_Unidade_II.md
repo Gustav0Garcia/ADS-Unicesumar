@@ -269,11 +269,11 @@ A saída esperada para o algoritimo:
 
 &nbsp;
 
-Para evitar o problma de reservar mais espa~p do que realmentye precisamos e não ficarmos limitados a quantidade previamente estipulada de posições do vetor, ``utilizamos vetores dinâmmicos``
+Para evitar o problema de reservar mais espaço do que realmente precisamos e não ficarmos limitados a quantidade previamente estipulada de posições do vetor, ``utilizamos vetores dinâmmicos``
 
 ``Exemplo``
 
-Na função **main()**, vamos criar uma variável **tam** do tipo inteiro para ler o tamanho do vetor e uma variável do tipo pontyeiro chamado **vetor**, que será criada de forma dinâmica de acordo com o valor lido na variável **tam**
+Na função **main()**, vamos criar uma variável **tam** do tipo inteiro para ler o tamanho do vetor e uma variável do tipo ponteiro chamado **vetor**, que será criada de forma dinâmica de acordo com o valor lido na variável **tam**
 
 ````c
 int tam;
