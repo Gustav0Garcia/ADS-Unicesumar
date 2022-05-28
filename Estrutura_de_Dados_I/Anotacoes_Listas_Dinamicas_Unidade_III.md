@@ -291,3 +291,280 @@ void lista_mostrar(ptr_no lista){
 
 &nbsp;
 
+A lista possui como característica a ordenção independe da forma de armazenamento. ``Para a Pilha, basta criar uma lista dinâmica e adicionar nela as regras LIFO (Último que entra é o primeiro que sai)``.
+
+Vamos criar uma função **pilha_inserir()**. Ela vai percorrer a lista dinâmica até que o último nó aponte para uma posição **NULL**. Inserimos ali um novo nó, ou como diz a definição de pilha, só podemos adicionar valores no final da estrutura.
+
+````c
+//Insere um elemento no final da Pilha
+void pilha_inserir(ptr_no pilha){
+    while(pilha->proximo != NULL){
+        pilha = pilha->proximo;
+    }
+    pilha->proximo = (ptr_no) malloc(sizeof(no));
+    pilha = pilha->proximo;
+    pilha->dado = rand()%100;
+    pilha->proximo = NULL;
+}
+````
+
+&nbsp;
+
+A remoção da pilha se dá da mesma maneira, pode-se remover sempre o último elemento. A função **pilha_remover()** vai percorrer toda a lista até encontrar o nó que aponta para um posição **NULL**. Isso signidica que chegou ao seu final, mas para removê-lo, precisamos ir guardando a posição atual antes de mover o ponteiro para a próxima posição. Quando o ponteiro **pilha** apontar para o último nó da pilha, o ponteiro **atual** estará apontando para a penúltima posição. Basta fazer o ponteiro **atual** apontar para **NULL** e o último elemento acaba de ser removido da estrutura.
+
+````c
+//Remove um elemento da pilha
+void pilha_remover(ptr_no pilha){
+    prt_no atual;
+    atual = (ptr_no) malloc(sizeof(no));
+    while(pilha->proximo != NULL){
+        atual = pilha;
+        pilha = pilha->proximo;
+    }
+    atual->proximo = NULL;
+}
+````
+
+&nbsp;
+
+``Código de uma lista dinâmica com regras de entrada e saída na forma de pilha``:
+
+````c
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+//Definindo a estrutura da pilha
+struct no{
+    int dado;
+    struct no *proximo;
+};
+
+//Definindo variáveis
+typedef struct no *ptr_no;
+ptr_no pilha;
+int op;
+
+//Prototipação
+void menu_mostrar();
+void menu_selecionar(int op);
+void pilha_inserir(ptr_no pilha);
+void pilha_remover(ptr_no pilha);
+void pilha_mostrar(ptr_no pilha);
+
+//Função principal
+int main(){
+    //Inicializando máquina de números randômicos
+    srand(time(NULL));
+    op = 1;
+    //Criando o primeiro nó da pilha
+    pilha = (ptr_no) malloc(sizeof(struct no));
+    pilha->dado = 0;
+    pilha->proximo = NULL;
+    //Laço principal
+    while(op != 0){
+        system("cls");
+        menu_mostrar();
+        scanf("%d", &op);
+        menu_selecionar(op);
+    }
+    system("Pause");
+    return(0);
+}
+
+//Mostrar o menu de opções
+void menu_mostrar(){
+    pilha_mostrar(pilha);
+    printf("\n\nEscolha uma das opções:\n");
+    printf("1 - Inserir no final da pilha\n");
+    printf("2 - Remover no final da pilha\n");
+    printf("0 - Sair\n");
+}
+
+//Executa a opção escolhida no menu
+void menu_selecionar(int op){
+    switch(op){
+        case 1:
+            pilha_inserir(pilha);
+        break;
+        case 2:
+            pilha_remover(pilha);
+        break;
+    }
+}
+
+//Inserir um elemento no final da Pilha
+void pilha_inserir(ptr_no pilha){
+    while(pilha->proximo != NULL){
+        pilha =  pilha->proximo;
+    }
+    pilha->proximo = (ptr_no) malloc(sizeof(struct no));
+    pilha = pilha->proximo;
+    pilha->dado = rand()%100;
+    pilha->proximo = NULL;
+}
+
+//Remove um elemento da pilha
+void pilha_remover(ptr_no pilha){
+    ptr_no atual;
+    atual = (ptr_no) malloc(sizeof(struct no));
+    while(pilha->proximo != NULL){
+        atual = pilha;
+        pilha = pilha->proximo;
+    }
+    atual->proximo = NULL;
+}
+
+//Desenha o conteúdo da pilha na tela
+void pilha_mostrar(ptr_no pilha){
+    system("cls");
+    while(pilha->proximo != NULL){
+        printf("%d, ", pilha->dado);
+        pilha = pilha->proximo;
+    }
+    printf("%d, ", pilha->dado);
+}
+````
+
+&nbsp;
+
+## **Lista Dinâmica com Forma de Fila**
+
+&nbsp;
+
+``Também pode ser implementado em uma lista dinâmica as regras da fila FIFO (Primeiro que entra, primeiro que sai)``.
+
+A função **fila_inserir()** deve percorrer a lista até o final, encontrando o nó que aponta para uma posição **NULL** e inserir o novo elemento.
+
+````c
+//Insere um elemento no final da fila
+void fila_inserir(ptr_no fila){
+    while(fila->proximo != NULL){
+        fila = fila->proximo;
+    }
+    fila->proximo = (ptr_no) malloc(sizeof(no));
+    fila = fila->proximo;
+    fila->dado = rand()%100;
+    fila->proximo = NULL;
+}
+````
+
+&nbsp;
+
+A remoção é um pouco diferente, sabemos que na fila sempre se remove o elemento mais antigo, ou seja, o primeiro da fila.
+
+Como na lista dinâmica, temos um ponteiro que aponta para o início da fila, basta guardar essa posição, andar na fila apenas uma vez e fazer com que o início da fila aponte para o segundo elemento. A função **fila_remover()** apresentada abaixo, também verifica se a fila não está vazia antes de fazer a remoção, o que pode ocasionar um erro e finzar repentinamente a execução do programa.
+
+````c
+//Remover um elemento do início da fila
+void fila_remover(ptr_no fila){
+    ptr_no atual;
+    atual = (ptr_no) malloc(sizeof(no));
+    atual = fila;
+    if(fila->proximo != NULL){
+        fila = fila->proximo
+        atual->proximo = fila->proximo;
+    }
+}
+````
+
+&nbsp;
+
+``Código de uma lista dinâmica com regras de entrada e saída na forma de fila``:
+
+````c
+#include <stdio.lib>
+#include <stdlib.h>
+#include <time.h>
+
+//Definindo a estrutura da fila
+struct no{
+    int dado;
+    struct no *proximo;
+};
+
+//Definindo variáveis
+typedef no *ptr_no;
+ptr_no fila;
+int op;
+
+//Prototipação
+void menu_mostrar();
+void menu_selecionar(int op);
+void fila_inserir(ptr_no fila);
+void fila_remover(ptr_no fila);
+void fila_mostrar(ptr_no fila);
+
+//Função principal
+int main(){
+    //Inicializando máquina de números randômicos
+    srand(time(NULL));
+    op = 1;
+    //Criando o primeiro nó da fila
+    fila = (ptr_no) malloc(sizeof(no));
+    fila->dado = 0;
+    fila->proximo = NULL;
+    //Laço principal
+    while(op != 0){
+        system("cls");
+        menu_mostrar();
+        scanf("%d", &op);
+        menu_selecionar(op);
+    }
+    system("Pause");
+    return(0);
+}
+
+//Mostrar o menu de opções
+void menu_mostrar(){
+    fila mostrar(fila);
+    printf("\nEscolha uma das opções:\n");
+    printf("1 - Inserir no final da fila\n");
+    printf("2 - remover no início da fila\n");
+    printf("0 - Sair\n\n");
+}
+
+//Executa a opção escolhida no menu
+void menu_selecionar(int op){
+    switch(op){
+        case 1:
+            fila_inserir(fila);
+        break;
+        case 2:
+            fila_remover(fila);
+        break;
+    }
+}
+
+//Insere um elemento no final da fila
+void fila_inserir(ptr_no fila){
+    while(fila->proximo != NULL){
+        fila = fila->proximo;
+    }
+    fila->proximo = (ptr_no) malloc(sizeof(no));
+    fila = fila->proxima;
+    fila->dado = rand()%100;
+    fila->proximo = NULL;
+}
+
+//Remove um elemento do inínicio da fila
+void fila_remover(ptr_no fila){
+    ptr_no atual;
+    atual = (ptr_no) malloc(sizeof(no));
+    atual = fila;
+    if(fila->proximo != NULL){
+        fila = fila->proximo;
+        atual->proximo = fila->proximo;
+    }
+}
+
+//Desenha o conteúdo da fila na tela
+void fila_mostrar(ptr_no fila){
+    system("cls");
+    while(fila->proximo != NULL){
+        printf("%d, ", fila->dado);
+        fila = fila->proximo;
+    }
+    printf("%d, ", fila->dado);
+}
+````
