@@ -99,12 +99,78 @@ void pilha_inserir(ptr_no pilha){
 }
 
 //Remove um elemento da pilha 01 e transfere pra pilha 02 (não estou entendendo como copiar pilha, estudar mais)
-void pilha_copiar(ptr_no pilha, ptr_no pilha2){
+//void pilha_copiar(ptr_no pilha, ptr_no pilha2){}
+
+/* ================================================== ==*/
+/* Função que copia os valores da pilha A para pilha B */
+/* ================================================== ==*/
+void copia_valores(struct tpilha **topo , struct tpilha **topo2, int *status)
+{
+    struct tpilha *tmp; /* Pilha temporaria */
+    struct tpilha *ptr; /* Ponteiro que percorrera a pilha A */
+    struct tpilha *ptr2; /* Ponteiro que percorrera a pilha B */
+
+    cria_pilha(&tmp);
+
+    ptr = *topo;
+    ptr2 = *topo2;
+
+    if (*topo == NULL)
+    {
+            *status = 1;
+    }
+    else
+    {
+        if ( *topo2 == NULL)
+        {
+            tmp = malloc( sizeof(struct no) );
+            tmp->dado = ptr->dado;
+            tmp->proximo = NULL;
+
+            *topo2 = tmp;
+            ptr = ptr->proximo;
+        }
+
+        /* Copia para pilha temporaria */
+        while(ptr != NULL)
+        {
+            tmp = malloc( sizeof(struct tpilha) );
+            tmp->dados = ptr->dados;
+
+            tmp->proximo = *topo2;
+            *topo2 = tmp;
+
+            ptr = ptr->proximo;
+
+        }
+
+        printf("DEBUG: Mostra pilha intermediaria:\n");
+        mostra_pilha(*topo2, 'C');
+
+        ptr = NULL;
+        ptr2 = NULL;
+        /* Copia para a pilha B */
+        while(*topo2 != NULL)
+        {
+            if (ptr == NULL)
+            {
+                ptr = *topo2; /* Copia primeiro valor do topo2 para ptr */
+                *topo2 = (*topo2)->proximo; /* Desloca topo2 em 1 */
+                ptr->proximo = NULL; /* Define NULL, pois se tornara o elemento mais recente da pilha */
+            }
+            else
+            {
+                ptr2 = *topo2;
+                *topo2 = (*topo2)->proximo;
+                ptr2->proximo = ptr;
+                ptr = ptr2;
+            }
+        }
+
+        *topo2 = ptr;
 
     }
 
-
-    
 }
 
 //Desenha o conteúdo das pilhas na tela
