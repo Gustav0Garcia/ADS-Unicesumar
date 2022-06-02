@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <stdlib.h >
 #include <locale.h>
+#include <conio.h>
 
 //Contante para o tamanho da pilha
 #define tamanho 5
@@ -32,7 +33,7 @@ struct tpilha{
 //Variáveis globais
 struct tpilha pilha_A;
 struct tpilha pilha_B;
-int op;
+char op;
 
 //Prototipação
 void pilha_entrar();
@@ -52,36 +53,58 @@ int main(){
     pilha_B.ini = 0;
     pilha_B.fim = 0;
 
-    while(op != 0){
+    while(op != '0'){
         system("cls");
         pilha_mostrar();
         menu_mostrar();
-        scanf("%d", &op);
-        switch(op){
-            case 1:
-                pilha_entrar();
-            break;
-            case 2:
-                pilha_sair();
-            break;
-            case 3:
-                pilha_transferir();
-            break;
-        }
+        printf("\n\n__________________________________________________________________________________________________\n\nEscolha uma opção: ");
+        op = getchar();
+        system("cls");
+        if(op > '0' && op < '4'){
+        	switch(op){
+            	case '1':
+                	pilha_entrar();
+            	break;
+            	case '2':
+                	pilha_sair();
+            	break;
+            	case '3':
+                	pilha_transferir();
+            	break;
+        	}
+    	}
     }
+    printf("=================================================================\n=\t\t\t\t\t\t\t\t=\n=\t Curso: Análise e Desenvolvimento de Sistemas\t\t=\n=\t Matéria: Estrutura de Dados I\t\t\t\t=\n=\t Aluno: Gustavo Garcia\t\t\t\t\t=\n=\t RA: 21025427-5\t\t\t\t\t\t=\n=\t\t\t\t\t\t\t\t=\n=================================================================\n_________________________________________________________________\n\n");
     return(0);
 }
 
 //Adicionar um elemento no final da Pilha A
 void pilha_entrar(){
+	int aux =0;
     if(pilha_A.fim == tamanho){
-        printf("\nPilha lotada!!\n\n");
+    	pilha_mostrar();
+        menu_mostrar();
+        printf("\n\n__________________________________________________________________________________________________\n\nPilha A está lotada, impossível empilhar!\n\n__________________________________________________________________________________________________\n\nAperte qualquer tecla para voltar!");
+		getch();
     }
     else{
-        printf("\nDigite o valor a ser empilhado: ");
-        scanf("%d", &pilha_A.dados[pilha_A.fim]);
-        pilha_A.fim++;
-    }
+    	pilha_mostrar();
+        menu_mostrar();
+        printf("\n\n__________________________________________________________________________________________________\n\nDigite o valor a ser empilhado: ");
+        scanf("%d", &aux);
+        if(aux >= 1 && aux <= 5){
+        	pilha_A.dados[pilha_A.fim] = aux;
+        	pilha_A.fim++;
+        	aux = 0;
+		}
+		else{
+			system("cls");
+			pilha_mostrar();
+       		menu_mostrar();
+			printf("\n\n__________________________________________________________________________________________________\n\nInserir valores permitidos!\n\n__________________________________________________________________________________________________\n\nAperte qualquer tecla para voltar!");
+			getch();
+		}	
+	}
 }
 
 //Fórmula para inserir valores já pré-definidos, conforme enunciado, na Pilha A
@@ -102,8 +125,10 @@ void pilha_entrar(){
 //Retirar o último elemendo da Pilha A
 void pilha_sair(){
     if(pilha_A.ini == pilha_A.fim){
-        printf("\nA pilha A está vazia, impossível desempilhar\n\n");
-        system("Pause");
+    	pilha_mostrar();
+        menu_mostrar();
+        printf("\n\n__________________________________________________________________________________________________\n\nA pilha A está vazia, impossível desempilhar!\n\n__________________________________________________________________________________________________\n\nAperte qualquer tecla para voltar!");
+        getch();
     }
     else{
         pilha_A.dados[pilha_A.fim-1] = 0;
@@ -115,8 +140,10 @@ void pilha_sair(){
 void pilha_transferir(){
 	int aux = 0; // variável auxiliar para guardar a informação da pilha para ser transferida para outra pilha
     if(pilha_B.fim == tamanho){
-        printf("\nNada foi adicionado a fila para inverter\n\n");
-        system("pause");
+    	pilha_mostrar();
+        menu_mostrar();
+        printf("\n\n__________________________________________________________________________________________________\n\nPilha B está cheia, nada foi transferido!\n\n__________________________________________________________________________________________________\n\nAperte qualquer tecla para voltar!");
+        getch();
     }
     else{
     	aux = pilha_A.dados[pilha_A.fim-1];
@@ -129,13 +156,13 @@ void pilha_transferir(){
 
 }
 
-//Mostrar o conteúdo da Pilha
+//Mostrar o conteúdo da Pilha e regras
 void pilha_mostrar(){
     int i;
-    //Mostra Pilha A
-    printf("Pilha A \n");
+    //Mostra Pilha A e regras no topo
+    printf("==================================================================================================\n=\t\t\t\t\t\tRegras:\t\t\t\t\t\t =\n=  Valores permitidos e cores: [1 - Vermelho | 2 - Verde | 3 - Azul | 4 - Branco | 5 - Laranja]  =\n==================================================================================================\n\n__________________________________________________________________________________________________\n\n-------------\n|  Pilha A  |");
     for(i = tamanho-1; i >= 0; i--){
-        printf("\n  [%d]", pilha_A.dados[i]);
+        printf("\n|    [%d]    |", pilha_A.dados[i]);
         if(pilha_A.dados[i] == 5){
         	printf(" - Laranja");
 		}
@@ -160,10 +187,11 @@ void pilha_mostrar(){
 			}  
   		}
   	}
+  	printf("\n-------------\n\n");
     //Mostrar Pilha B
-    printf("\n\nPilha B \n");
+    printf("-------------\n|  Pilha B  |");
     for(i = 0; i < tamanho; i++){
-    	printf("\n  [%d]", pilha_B.dados[i]);
+    	printf("\n|    [%d]    |", pilha_B.dados[i]);
         if(pilha_B.dados[i] == 5){
         	printf(" - Laranja");
 		}
@@ -188,9 +216,10 @@ void pilha_mostrar(){
 			}  
   		}
   	}
+  	printf("\n-------------");
 }
 
 //Mostrar o menu de opções
 void menu_mostrar(){
-    printf("\n\n\n   Menu\n\n1 - Inserir valor na Pilha A\n2 - Desempilhar Pilha A\n3 - Transferir Pilha A para Pilha B\n0 - Sair\n\nEscolha uma opção: ");
+    printf("\n\n__________________________________________________________________________________________________\n\n   Menu\n\n1 - Inserir valor na Pilha A\n2 - Desempilhar Pilha A\n3 - Transferir Pilha A para Pilha B\n0 - Sair");
 }
