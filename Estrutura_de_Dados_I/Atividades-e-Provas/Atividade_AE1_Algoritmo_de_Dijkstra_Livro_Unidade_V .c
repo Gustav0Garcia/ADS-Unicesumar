@@ -1,5 +1,5 @@
-// Necessário rever o algoritmo, não apresentou o melhor caminho.
-//Algoritmo reescrito para estudo, do livro da matéria, Unidade V
+/* Necessário rever o algoritmo, não apresentou o melhor caminho.
+Algoritmo reescrito para estudo, do livro da matéria, Unidade V */
 
 //Bibliotecas
 #include <stdio.h>

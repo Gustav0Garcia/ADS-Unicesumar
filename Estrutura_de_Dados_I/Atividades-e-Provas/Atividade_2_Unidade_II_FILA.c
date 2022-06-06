@@ -1,13 +1,13 @@
-//2. Uma agência bancária quer inovar seu atendimento, criando mais conforto para seus clientes. Para isso, foram colocadas diversas cadeiras na recepção
-//do banco. Quando um cliente chega, o atendente lança no computador o seu nome e o horário que chegou. Assim que um caixa fica livre, a recepcionista
-//olha no sistema e chama o primeiro cliente da fila. Dessa forma, é possível que os clientes esperem confortavelmente sentados pelo seu atendimento, não
-//importando o local onde se encontrem dentro da agência bancária.
-//a) Faça uma estrutura para o controle da fila. Você precisa guardar o nome e a hora que o cliente chegou. Use um vetor para armazenar os dados e dois
-//números inteiros, um para controlar o início e outro o final da fila.
-//b) Defina a variável que será um vetor do tipo fila de clientes.
-//c) Crie uma função enfileirar, lembrando que é preciso verificar se há espaço na fila (o número de cadeiras na recepção é limitado).
-//d) Elabore a função desenfileirar cliente, não se esqueça de que é necessário verificar se ainda existem clientes para serem atendidos.
-//e) Faça uma função que apresente na tela a lista de todos os clientes que estão aguardando atendimento na recepção.
+/* 2. Uma agência bancária quer inovar seu atendimento, criando mais conforto para seus clientes. Para isso, foram colocadas diversas cadeiras na recepção
+do banco. Quando um cliente chega, o atendente lança no computador o seu nome e o horário que chegou. Assim que um caixa fica livre, a recepcionista
+olha no sistema e chama o primeiro cliente da fila. Dessa forma, é possível que os clientes esperem confortavelmente sentados pelo seu atendimento, não
+importando o local onde se encontrem dentro da agência bancária.
+a) Faça uma estrutura para o controle da fila. Você precisa guardar o nome e a hora que o cliente chegou. Use um vetor para armazenar os dados e dois
+números inteiros, um para controlar o início e outro o final da fila.
+b) Defina a variável que será um vetor do tipo fila de clientes.
+c) Crie uma função enfileirar, lembrando que é preciso verificar se há espaço na fila (o número de cadeiras na recepção é limitado).
+d) Elabore a função desenfileirar cliente, não se esqueça de que é necessário verificar se ainda existem clientes para serem atendidos.
+e) Faça uma função que apresente na tela a lista de todos os clientes que estão aguardando atendimento na recepção. */
 
 //a)
 //Bibliotecas

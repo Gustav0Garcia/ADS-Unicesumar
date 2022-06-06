@@ -1,5 +1,5 @@
-//Estudo utilizando código encontrado na internet
-//Apresentando lista dinâmica utilizadno ponteiro e transferência de Pilha A para Piha B
+/*Estudo utilizando código encontrado na internet
+Apresentando lista dinâmica utilizadno ponteiro e transferência de Pilha A para Piha B*/
 
 #include <stdio.h>
 #include <conio.h>
