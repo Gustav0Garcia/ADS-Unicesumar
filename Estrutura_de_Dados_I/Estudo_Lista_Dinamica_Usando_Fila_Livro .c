@@ -3,13 +3,12 @@
 #include <time.h>
 
 //Definindo a estrutura da fila
-struct no{
+typedef struct no{
     int dado;
     struct no *proximo;
-};
+}*ptr_no;
 
 //Definindo variáveis
-typedef struct no *ptr_no;
 ptr_no fila;
 int op;
 
@@ -72,7 +71,7 @@ void fila_inserir(ptr_no fila){
     fila->proximo = NULL;
 }
 
-//Remove um elemento do inínicio da fila
+//Remove um elemento do início da fila
 void fila_remover(ptr_no fila){
     ptr_no atual;
     atual = (ptr_no) malloc(sizeof(struct no));
