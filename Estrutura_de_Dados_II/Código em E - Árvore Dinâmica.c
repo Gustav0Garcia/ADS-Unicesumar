@@ -121,13 +121,15 @@ int main()
 {
 	inicializaArvore(a);
 	
-	insereNoArvoreOrdenada(10);
-	insereNoArvoreOrdenada(15);
+	insereNoArvoreOrdenada(2);
+	insereNoArvoreOrdenada(1);
+	insereNoArvoreOrdenada(0);
+	insereNoArvoreOrdenada(2);
 	insereNoArvoreOrdenada(5);
-	insereNoArvoreOrdenada(3);
+	insereNoArvoreOrdenada(4);
+	insereNoArvoreOrdenada(2);
 	insereNoArvoreOrdenada(7);
-	insereNoArvoreOrdenada(12);
-	insereNoArvoreOrdenada(17);
+	insereNoArvoreOrdenada(5);
 	
 	printf("\nBusca em ordem: \n");
 	emOrdem(a.raiz);

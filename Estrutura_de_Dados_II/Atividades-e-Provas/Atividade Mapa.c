@@ -16,6 +16,7 @@ Visitação pré-ordem: 6 1 0 2 7 5 8 9 */
 #include <stdlib.h>
 #include <locale.h>
 #include <conio.h>
+#include <time.h>
 
 //Constantes
 #define E 0
@@ -84,12 +85,12 @@ void insereNoArvoreOrdenada(int valor)
 
 	NO* novoNo = (NO*) malloc(sizeof(NO));
 	inicializaNo(novoNo, valor);
-	printf("Inserindo No %d. \n", novoNo->dado);
+	printf("\nInserindo No %d\n", novoNo->dado);
 	
 	if(corrente == NULL)
 	{
 		a.raiz = novoNo;
-		printf("No inserido na raiz. \n");
+		printf("No inserido na raiz");
 		return;
 	}
 	
@@ -98,7 +99,7 @@ void insereNoArvoreOrdenada(int valor)
 		if(novoNo->dado < corrente->dado){
 			corrente = corrente->esq;
 			if(!corrente){
-				printf("No inserido à esquerda do No %d. \n", pai->dado);
+				printf("No inserido à esquerda do No %d", pai->dado);
 				pai->esq = novoNo;
 				return;
 			}
@@ -106,7 +107,7 @@ void insereNoArvoreOrdenada(int valor)
 		else{
 			corrente = corrente->dir;
 			if(!corrente){
-				printf("No inserido à direita do No %d. \n", pai->dado);
+				printf("No inserido à direita do No %d", pai->dado);
 				pai->dir = novoNo;
 				return;
 			}
@@ -117,7 +118,7 @@ void insereNoArvoreOrdenada(int valor)
 //Executa o caminhamento pré-ordem a partir do nó indicado por "raiz"
 void preOrdem(NO* raiz){
 	if(raiz){
-		printf("%d \t", raiz->dado);
+		printf("%d | ", raiz->dado);
 		preOrdem(raiz->esq);
 		preOrdem(raiz->dir);
 	}
@@ -141,19 +142,23 @@ void fila_inserir(ptr_no fila, int op){
 //Desenha o conteúdo da fila na tela
 void fila_mostrar(ptr_no fila){
     system("cls");
-    printf("__________________________________________________________________________________________________\n\nValores informados (Desconsiderar o 0)\n\n");
+    printf("__________________________________________________________________________________________________\n\nValores informados (Desconsiderar o 0)\n\n| ");
     while(fila->proximo != NULL){
-        printf("%d, ", fila->dado);
+        printf("%d | ", fila->dado);
         fila = fila->proximo;
     }
-    printf("%d, ", fila->dado);
+    printf("%d | ", fila->dado);
 }
 
 //Função principal
 int main(){
+	
 	setlocale(LC_ALL, "");
+	
 	char aux = 5;
+	clock_t t; //variável para armazenar o tempo
 	inicializaArvore(a);
+	
 	//Criando o primeiro nó da fila
     fila = (ptr_no) malloc(sizeof(struct no));
     fila->dado = 0;
@@ -166,7 +171,9 @@ int main(){
 		aux = getchar();	
 		switch(aux){
 			case '1':
-					printf("\n\n__________________________________________________________________________________________________\n\nInforme o valor a ser inserido: ");
+					fila_mostrar(fila);
+					menu_mostrar();
+					printf("Informe o valor a ser inserido: ");
 					scanf("%d", &op);
 					fila_inserir(fila, op);
 					insereNoArvoreOrdenada(op);
@@ -175,14 +182,21 @@ int main(){
 					system("cls");
 				break;
 			case '2':
-				printf("\n\n__________________________________________________________________________________________________\n\nBusca Pré Ordem: \n\n");
+				fila_mostrar(fila);
+				menu_mostrar();
+				printf("Busca Pré Ordem: \n\n| ");
+				t = clock(); //Calcula o tempo inicial antes da organização pré ordem
 				preOrdem(a.raiz);
+				t = clock() -t; //Calcula o tempo final depois da organização pré ordem
+				printf("\n\nTempo em milissegundos da execução Pré Ordem: %lf\n\n__________________________________________________________________________________________________", (((clock() - t) / (double)CLOCKS_PER_SEC/1000))); //Informa o tempo, foi dividido em 1000 para informar em milissegundos
 				printf("\n\n");
 				system("pause");
 				break;
 			default:
 				if(aux > '2'){
-					printf("\n\n__________________________________________________________________________________________________\n\nOpção inválida.\n\n");
+					fila_mostrar(fila);
+					menu_mostrar();
+					printf("Opção inválida\n\n__________________________________________________________________________________________________\n\n");
 					system("pause");
 				}
 				break;
