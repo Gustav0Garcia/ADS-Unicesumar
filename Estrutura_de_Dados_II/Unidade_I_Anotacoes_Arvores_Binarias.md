@@ -282,5 +282,12 @@ Acabamos de ver uma forma de armazenar uma árvore binária em um vetor. Essa im
 
 &nbsp;
 
+Uma outra forma de armazenar uma árvore binária em um vetor é reservar as posições de acordo com o nível e descendência de cada nó. O primeiro nó a ser armazenado é a raiz da árvore e ele ficará na primeira posição do vetor, ``lembrando que os vetores em C começan na posição 0``.
 
-continuar da pag 26......
+Se a árvore não for binária completa, existirão vários espaços vazios no vetor, lembrando uma memória fragmentada. Por outro lado, estaremos ocupando exatamente a mesma quantidade de memória que a implementação anterior.
+
+A principal diferença é que nesse modelo os nós da árvore estarão indexados, assim é possível obter as informações de forma rápida e precisa, utilizando-se do índice ao invés de percorrer toda a estrutura.
+
+&nbsp;
+
+Uma árvore binária também pode ser criada dinamicamente, basta um ponteiro **esquerdo** e **direito** que apontará para os filhos e um ponteiro para o  **pai**.
