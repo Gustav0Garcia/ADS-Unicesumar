@@ -6,8 +6,6 @@
 
 &nbsp;
 
-<img src = "">
-
 Dependendo dos requisitos de uma aplicação, pode ser preciso percorrer todos os elementos de uma árvore para, por exemplo, exibir todo o seu conteúdo ao usuário. 
 
 &nbsp;
