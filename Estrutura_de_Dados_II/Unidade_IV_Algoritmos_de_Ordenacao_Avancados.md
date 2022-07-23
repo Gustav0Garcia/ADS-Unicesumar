@@ -192,4 +192,123 @@ A sublista com valores menores também está quase ordenada, e a quantidade de p
 
 &nbsp;
 
-continuar da pág. 98...
+Para entender o ``Heapsort`` devemos remeter a outra estrutura de dados: **as filas de prioridade**. Uma fila de prioridade agrupa elementos de forma que cada um dos elementos pode ter maior ou menor importância para a aplicação, em suma, nesse tipo de fila é possível inserir elementos a qualquer instante e em qualquer posição do arranjo, de acordo com sua priodade, e sua remoção é sempre feita no elemento de maior prioridade.
+
+A implementação de uma fila de prioridades eficiente, advém da estrutura de dados **heap**, uma **heap** permite a inserção e remoção de elementos em filas de prioridade em tempo logarítimo, tamanha eficiência é alcançada a partir da transformação de um vetor linear em uma estrutura similar a uma árvore binária, todavia, o algoritmo ``Heapsort`` não implementa uma fila de prioridades.
+
+Podemos definir a estrutura de dados **heap** como uma árvore binária com algumas priopriedades adicionais, considere uma árvore binária com N níveis, que vão de **0** até **N-1**:
+
+* A heap deve ser uma árvore binária eficiente, por isso é preciso que ela seja uma árvore completa até o nível N-2. Isto é, a heap é, obrigatoriamente, uma árvore binária completa até o penúltimo nível;
+
+* Por convenção a heap deve fazer com que os nós do nível N-1 (último nível) estejam tão à esquerda quanto possível;
+
+* A chave de cada nó deve ser comparada ao seu nó pai. Ou seja, o conteúdo de nós x e y, cujas subárvores são enraizadas em z, devem respeitar a seguinte regra:
+
+    * No caso de uma max-heap, o nó raiz deve ser maior ou igual aos nós filhos x e y.
+    * Já em uma min-heap, o nó raiz deve ser menor ou igual aos  nós filhos x e y.
+
+&nbsp;
+
+Abaixo uma representação de uma **heap**
+
+<img src = "Imagens/Heap1.png">
+
+&nbsp;
+
+Tais propriedades auziliam a armazenar a **heap** em um vetor, ao invés de trabalhar com alocação dinâmica de memória.
+
+Se um nó pai esatá na posição **p** do vetor, então seu filho esquerdo estará na posição **2 x p + 1** e seu filho direito na posição **2 x p + 2**, dessa forma, observe como a **heap** representa visualmente abaixo pode ser armazenada em um vetor **v**.
+
+<img src = "Imagens/Heap2.png">
+
+&nbsp;
+
+As propriedades da **heap** garantem um fato importante: **o maior elemento entre todos sempre estará armazenado na raiz, isto é, na posição inicial do vetor** (**v[0]**), dessa forma, aproveitando essa característica, utilizamos no algoritmo ``Heapsort``.
+
+Primeiro, deve garantir que o vetor esteja formatado como uma **heap**, de acordo com as fórmulas de posicionamento apresentadas anteriormente, damos o nome de **constroiHeap** ao método que realiza essa façanha (e inglês, **Build-Max-Heap**). Além de construir uma árvore binária quase completa dentro do vetor, o método **constroiHeap** é responsável por garantir que cada nó pai seja maior ou igual aos nós filhos.
+
+Em seguida, deve focar nas extremidades do vetor de forma a considerar que, conforme o ``Heapsort`` vai sendo executado, nas partes iniciais do vetor, temos os dados da **heap**, e nas partes finais do vetor, temos o arranjo ordenado, resumindo, durante o processo de ordenação, dividimos o vetor logicamente em duas poções: a **heap** e a porção ordenada do vetor.
+
+Uma vez que o vetor desordenado foi transformado em **heap**, damos sequência, se a intenção for ordenar o vetor em ordem não-crescente (de modo geral, crescente), pode-se simplesmente trocar o maior elemento da raiz pelo elemento que se encontra ao final da **heap**.
+
+Ao trocar o elemento da raiz da **heap** com o elemento do final do vetor, estará posicionamento o maior elemento em sua posição ordenada final, nesse instante, deve desconsiderar tal elemento como um nó da **heap** de forma que, agora ele passe a pertencer à porção ordenada do vetor
+
+Abaixo, o nó 80, raiz do vetor **v** da figura anterior, foi trocada com o nó de chave igual a 13
+
+<img src = "Imagens/Heap3.png">
+
+&nbsp;
+
+O elemento 80, de fato, é o maior de todos e, após a troca, foi posicionado no último índice de **v**, assim, o 80 já se encontra ordenado em sua posição final, todavia, após a troca, a árvore perdeu a propriedade de **heap**, pois a raiz 13 não é maior que seus filhos, quebrando as regras. É necessário consertar a **heap**, fazendo com que a nova raiz "escorrregue" até uma posição que restaure a árvore binária para ser enquadrada enquanto uma **heap**, isso é feito através do método chamado de **heapifica** (em inglês, **heapify**)
+
+<img src = "Imagens/Heap4.png">
+
+&nbsp;
+
+O método **heapifica**, quando invocado, vai comparando um nó pai aos respectivos nós filhos, caso algum filho seja maior que o nó pai, é realizado a troca entre o maior filho e o pai, dessa forma, após essa operação, o nó pai seja, de fato, maior o igual aos nós filhos para manter a propriedade da **heap**.
+
+Essa troca pode fazer com que o novo nó filho quebre as propriedades de **heap**, isto é, o nó filho, recém trocado, pode ter novos filhos que não se categorizam enquanto **heap**, por isso, é preciso invocar o método **heapifica** recursivamente, até que todos os nós necessários sejam corrigidos.
+
+<img src = "Imagens/Heap5.png">
+
+<img src = "Imagens/Heap6.png">
+
+&nbsp;
+
+Pode-se notar como o método **hipifica** troca a raiz de uma subárvore com seu maior filho, à medida em que é  executado, para cada nó trocado, invoca-se o método recursivamente, até que a propriedade de **heap** seja garantida a todos os nós envolvidos no processo, além disso, podemos observar que, ao final, temos novamente uma **heap** na qual o maior entre todos os elementos se encontra na raiz.
+
+Agora, o nó, cuja chave é igual a 75, econtra=se na raiz, assim, repete-se o processo realizado anteriormente, no qual a raiz da **heap** era trocada com o "último" elemento do vetor, por último elemento, seria a última posição da porção desordenada do vetor, ou seja, a última posição da **heap**.
+
+<img src = "Imagens/Heap7.png">
+
+&nbsp;
+
+Pode-se perceber que, repetindo todo o processo descrito, o ``heapsort`` posiciona os maiores elementos ao final do arranjo, de maneira ordenada.
+
+````c
+//Garante as propriedades de heap a um nó
+int heapifica(int vec[], int tam, int i){
+    int e, d, maior, qtd;
+    qtd = 1;
+    e = 2*i+1;
+    d = 2*i+2;
+    if(e<tam && vec[e] > vec[i]){
+        maior = e;
+    }
+    else {
+        maior = i;
+    }
+    if(d<tam && vec[d] > vec[maior]){
+        maior = d;
+    }
+    if(maior != i){
+        troca(&vec[i], &vec[maior]);
+        qtd += heapifica(vec, tam, maior);
+    }
+    return qtd;
+}
+
+//Transforma o vetor em uma heap
+int constroiHeap(int vec[], int tam){
+    int i, qtd;
+    qtd = 0;
+    for(i=tam/2;i>=0;i--){
+        qtd += heapifica(vec, tam, i);
+    }
+    return qtd;
+}
+
+//Ordena com base na estrutura heap
+int heapSort(int vec[], int tam){
+    int n, i, qtd;
+    qtd = 0;
+    qtd += constroiHeap(vec, tam);
+    n = tam;
+    for(i=tam-1;i>0;i--){
+        troca(&vec[0], &vec[i]);
+        n--;
+        qtd += heapifica(vec, n, 0);
+    }
+    return qtd;
+}
+````
