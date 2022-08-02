@@ -13,5 +13,11 @@
 
 3 - Engenharia de Software
 
-4 - Estratura de Dados I
+4 - Estrutura de Dados I
 * Linguagem utilizada: C
+
+5 - Estrutura de Dados I
+* Linguagem utilizada: C
+
+6 - Programação I
+* Linguagem utilizada: Java
