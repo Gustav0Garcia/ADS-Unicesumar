@@ -284,4 +284,295 @@ A variável quando é estática funciona mais ou menos como uma variável do tip
 
 &nbsp;
 
-Continuar da pag. 42...
+São instruções que permitem que blocos específicos de código sejam escolhidos para sereme xecutados, redirecionando determinadas partes do fluxo do programa.
+
+``O Java contém três tipos de estruturas de controle``: instruções de sequência; instrução de seleção (*if, if else, switch*) e instruções de repetição (*while, do-while, for*).
+
+&nbsp;
+
+### **Instruções de Sequência**
+
+&nbsp;
+
+Diagrama de atividades UML que modela um fluxo de sequência em Java com 2 instruções:
+
+<img src = "Imagens/Sequencia.png">
+
+&nbsp;
+
+O circulo na parte superior representa o estado inicial do programa, os retângulos são as diretrizes (instruções), as setas representam as transições e o circulo na parte inferior representa o estado final do programa.
+
+&nbsp;
+
+## **Estruturas de Seleção**
+
+---
+
+&nbsp;
+
+### **Instruções *If* e *Else***
+
+&nbsp;
+
+O java disponibiliza os comandos *if* e *else* que, de forma seletiva, definem qual bloco de comandos deverá ser executado. Se a condição do comando *if* for avaliada como verdadeira, será executado o bloco de comando dentro do *if*
+
+~~~~Java
+    if(expressao){
+        diretiva
+    }
+~~~~
+
+&nbsp;
+
+Abaixo fluxograma de como funciona o comando *if*
+
+<img src = "Imagens/If1.png">
+
+&nbsp;
+
+``Diretivas`` são as instruções que o Java fornece para a construção de programas, elas são separadas por ";".
+
+**Exemplo If**:
+
+~~~~Java
+public class EstruturaControle{
+    
+    public static void main (String args[]){
+
+        int valor1 = 5;
+        int valor2 = 10;
+
+        if (valor1 > valor2){
+            System.out.println("Valor 1 é maior que valor 2");
+        }
+
+        System.out.println("Soma dos valores: " + (valor1 + valor2));
+    }
+}
+~~~~
+
+&nbsp;
+
+Acima temos uma expressão comparando o **valor1** com o **valor2**, no caso, a expressão retornou um valor verdadeiro, o que fez com que a diretiva fosse executada
+
+Agora utilizando a estrutura de condição *if else*
+
+~~~~Java
+    if (expressao){
+        Diretiva 1
+    }else{
+        Diretiva 2
+    }
+~~~~
+
+Abaixo fluxograma de como funciona o comando *if else*
+
+<img src = "Imagens/IfElse.png">
+
+&nbsp;
+
+**Exemplo If Else**:
+
+~~~~Java
+public class EstruturaControle{
+
+    public static void main(String args[]){
+        int valor1 = 5;
+        int valor2 = 10;
+        if(valor1 > valor2){
+            System.out.println("Valor 1 é maior que valor 2");
+        }else{
+            System.out.println("Valor 2 é maior que valor 1");
+        }
+    }
+}
+~~~~
+
+A expressão (valor1 > valor 2) sempre irá retornar um valor lógico, sendo verdadeiro ou falso.
+
+&nbsp;
+
+### **Argumentos Válidos para Instruções *If***
+
+&nbsp;
+
+As instruções *if* só podem avaliar valores booleanos, pode fazer uso de operadores lógicos "&&" (E) e "||" (OU).
+
+Utilizando o operador "&&", caso a primeira condição avaliada em um comando *if* seja falsa, automaticamente a segunda expressão não será avaliada.
+
+Utilizando o operador "||", caso a primeira condição avaliada em um comando *if* seja verdadeira, automaticamente a segunda expressão não será avaliada.
+
+~~~~Java
+public class EstruturaControle{
+
+    public static void main(String args[]){
+        int valor1 = 5;
+        int valor2 = 10;
+        if(valor1 > 10 && valor2 > 10){
+            System.out.println("1) Os dois valores são maiores que 10");
+        }else{
+            System.out.println("1) O primeiro ou o segundo valor não é maior que 10");
+        }
+        if(valor1 > 10 || valor2 > 10){
+            System.out.println("2) Um dos números é maior que 10");
+        }else{
+            System.out.println("2) Nenhum dos números é maior que 10");
+    }
+}
+~~~~
+
+&nbsp;
+
+### **Instruções *Switch***
+
+&nbsp;
+
+Ela verifica uma variável e trabalha de acordo com seus *cases*, os *cases* são as possibilidades de resultados que são obtidos por *switch*.
+
+El serve para controlar diversas ações diferentes de acordo com o *case* definido dentro dele.
+
+Utilizando a estrutura de condição *switch*:
+
+~~~~Java
+    switch (expressao ordinal) {
+    case valor ordinal 1:
+        diretiva 1;
+    break;
+    case valor ordinal 2:
+        diretiva 2;
+    break;
+        ...
+    default:
+        diretiva N;
+    }
+~~~~
+
+A ``expressão ordenal`` é a expressão que retorna um valor de algum tipo discreto (*inteiro, char* etc.).
+
+Abaixo fluxograma de como funciona o comando *switch*
+
+<img src = "Imagens/Switch.png">
+
+&nbsp;
+
+É possível construir um programa com *if* equivalente ao *switch*, porém é mais trabalhoso se no caso for possível utilizar o *switch*.
+
+**Deve-se usar o *switch* quanhdo usar uma mesma variável, igualando-a com vários valores diferentes, a estrutura do comando *switch* vem acompanhada com o comando *case*, que com base no valor da variável do comando *switch* define qual opção será executada**. 
+
+``Para que somente um entre vários comandos seja executado, deve-se executar o comando break logo após a execução dos comandos contidos no bloco de comando case selecionados``.
+
+**Exemplo de *switch***
+
+~~~~Java
+public class Menu{
+    public static void main(String[ args]) throws IOException{
+        System.out.println("Digite um dos comandos abaixo do menu: ");
+        System.out.println("1: Comprar; 2: Vender; 3: Listar; 4: Sair");
+        //Lê do teclado um caracter
+        Scanner scan = new Scanner(System.in);
+        int opcao = scan.nextInt();
+        switch(opcao){
+            case 1:
+                System.out.println("Você acessou COMPRAR");
+                break;
+            case 2:    
+                System.out.println("Você acessou VENDER");
+                break;
+            case 3:    
+                System.out.println("Você acessou LISTAR");
+                break;       
+            default:    
+                System.out.println("Saindo do sistema");                        
+        }   
+    }
+}
+~~~~
+
+&nbsp;
+
+Iremos ler do teclado um caractere numérico utilizando a classe **Scanner** do Java, a classe **Scanner** permite a leitura de dados vindos do teclado, a utilização do método **nextin()** da classe **Scanner** deixa no *buffer* a instrução da tecla pressionada.
+
+No programa acima, foi lido um caractere numérico do teclado, e caso for igual a uma das opções do menu, ele então apresentará a informação personalizada para cada opção escolhida.
+
+**A palavra break interrompe a execução do case, se a palavra-chave break for omitida, o programa simplesmente continuará a executar os outros blocos case até que uma palavra break seja encontrada na instrução switch, ou até que a instrução termine**.
+
+``O comando default representa uma excessão a todas as opções listadas nos comandos case, também é importante observar que nos comandos case da instrução switch, só são aceitas variáveis do tipo: int, char, byte e short``.
+
+&nbsp;
+
+## **Estruturas de Repetição**
+
+---
+
+&nbsp;
+
+Os **loops** no Java permitem que faça repetição na execução de um bloco de código até que uma determinada condição seja verdadeira ou durante uma quantidade específica de iterações.
+
+&nbsp;
+
+### **Usando *Loop For***
+
+&nbsp;
+
+é aprticularmente útil para o controle de fluxo quando já souber quantas vezes terá de executar as instruções do bloco **loop**
+
+Utilizando a estrutura do comando *for*:
+
+~~~~Java
+    for ([inicio]; [condicao]; [incremento/decremento]){
+        diretiva;
+    }
+~~~~
+
+O **inicio** é a diretiva executada antes do laço começar; em seguida, temos a condição que é a expressão de condição de parada do laço (geralmente, comparação com o valor final); o incremento/decremento representa diretiva executada antes de começar cada iteração do laço (geralmente usada para incrementar ou decrementar o contador).
+
+Abaixo fluxograma de como funciona o comando *for*:
+
+<img src = "Imagens/For.png">
+
+&nbsp;
+
+``O loop for é uma construção geral para suportar a interação que é encontrada por uma variável de contador ou semelhante, que é atualizada depois de cada iteração``.
+
+**Exemplo de *loop for***
+
+~~~~Java
+public class ComandoFor{
+
+    public static void main(String args[]){
+
+        for(int i = 1; i <= 5; i++){
+            System.out.println(i);
+        }
+    }
+}
+~~~~
+
+&nbsp;
+
+No Java é possível utilizar o **loop for** para fazer repetição condicional:
+
+~~~~Java
+    boolean achou = false;
+    for(int i = 0; (!achou); i++){ //!achou é negativa, tornando-o true
+        /*...*/
+    }
+~~~~
+
+&nbsp;
+
+Pode efetuar múltiplas diretivas na inicialização e no incremento, se necessário, separando com vírgulas
+
+~~~~Java
+    for(int i = 1, j = i + 10; i < 5; i++, j = 1 * 2){
+        System.out.println("i = " + i + "j = " + j);
+    }
+~~~~
+
+&nbsp;
+
+### **Usando *Loop While***
+
+&nbsp;
+
+Continuar da pag 54...
