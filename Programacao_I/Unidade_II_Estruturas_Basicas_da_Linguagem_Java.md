@@ -465,7 +465,7 @@ Abaixo fluxograma de como funciona o comando *switch*
 
 ~~~~Java
 public class Menu{
-    public static void main(String[ args]) throws IOException{
+    public static void main(String[] args) throws IOException{
         System.out.println("Digite um dos comandos abaixo do menu: ");
         System.out.println("1: Comprar; 2: Vender; 3: Listar; 4: Sair");
         //Lê do teclado um caracter
