@@ -60,11 +60,11 @@ public class Atividade1 {
                 break;       
             default:    
                 System.out.println("\n\n____________________________________________\nCurso: Analise e Desenvolvimento de Sistemas\nMateria: Programacao I\nAluno: Gustavo Garcia\n\nSaindo do programa em 5 segundos\n1 segundo");
-                Thread.sleep(1000);
+                Thread.sleep(1000); //pausa por 1s  para mostrar a contagem
                 
                for(int i = 2; i < 6; i++){
                    System.out.println("" +i + " segundos");
-                   Thread.sleep(1000);
+                   Thread.sleep(1000); //pausa por 1s a cada repetição para mostrar a contagem
                }
                System.out.println("Programa Finalizado!\n");
             }    

@@ -575,4 +575,246 @@ Pode efetuar múltiplas diretivas na inicialização e no incremento, se necess�
 
 &nbsp;
 
-Continuar da pag 54...
+É adequado para quando não souber quantas vezes o bloco ou instrução terá que ser repetido.
+
+Utilizando a estrutura do comando *while*:
+
+~~~~Java
+    while(condicao){
+        Diretiva;
+    }
+~~~~
+
+&nbsp;
+
+A condição é a expressão de condição de parada do laço (expressão lógica).
+
+Abaixo fluxograma de como funciona o comando *while*:
+
+<img src = "Imagens/While.png">
+
+&nbsp;
+
+O problema com estruturas de repetição, é que pode ocorrer o *looping* infinito, sendo imprescindível que uma determinada variável seja modificada de acordo com cada *loop*.
+
+**Exemplo de *While***
+
+~~~~Java
+    int contador = 0;
+    while(contador < 5){
+        System.out.println("Repetição Nro: " + contador);
+        contador++;
+    }
+~~~~
+
+&nbsp;
+
+A variável **contador** é iniciada com 0, a cada *loop* executado é somado 1 ao contador, fazendo o **while** manter a repetição enquanto a variável **contador** for menor que 5.
+
+``Outro ponto importante é que a variável **contador** é inicializada antes de chgar ao while, assim, o while comparará a sentença e só depois permitirá a execução do bloco``, **se quizer fazer todo o bloco primeiro e só depois fazer a comparação, devemos utilizar o comando do while**.
+
+&nbsp;
+
+### **Usando *Loop Do-While***
+
+&nbsp;
+
+**Ele permite que pelo menos uma execução do bloco de comandos seja executada antes de testar a condição**.
+
+O bloco de comandos será executado enquanto a condição for verdadeira.
+
+Utilizando a estrutura do comando *do-while*:
+
+~~~~Java
+    do{
+        Diretiva;
+    }while(condicao);
+~~~~
+
+&nbsp;
+
+Abaixo fluxograma de como funciona o comando *do-while*:
+
+<img src = "Imagens/DoWhile.png">
+
+&nbsp;
+
+O **do while** só avalia depois, certamente executando a diretiva ao menos uma vez, não sendo possível comparar a variável de controle antes do bloco de código como acontece com o **while**, pois a comparação só será feita após todo código ter sido executado.
+
+**Exemplo de *Do While***
+
+~~~~Java
+    int valor = 1;
+    do{
+        System.out.println("O numero é: " + valor);
+        valor++;
+    }while(valor < 5>);
+~~~~
+
+&nbsp;
+
+## **Desvios Incondicionais**
+
+---
+
+&nbsp;
+
+Constam dois casos específicos no Java de desvios incondicionais: **break** e **continue**.
+
+**Break** e **continue** são dois comandos de controle de estruturas largamente utilizados em loops (repetições), como **for** e **while**.
+
+&nbsp;
+
+### **Break**
+
+&nbsp;
+
+**Esse comando tem a função de interromper a execução de um loop**.
+
+Abaixo exemplo, tem a repetição que se inicia em 1 e deve terminar em mim (500), mas dentro desta estrutura há uma condição: se a variável foir igual a 6, saia da estrutura de repetição:
+
+~~~~Java
+    public static void main (String args[]){
+        for(int cont = 1; cont <= 500; cont++){
+            System.out.println("nr: " + cont);
+            if(cont == 6){
+                break;
+            }
+        }
+    }
+~~~~
+
+&nbsp;
+
+Mesmo que a condição **for** instruísse para o programa imprimir números até 500, a condição **if** se tornou válida quando o **cont** chegou ao número 6, e sendo verdadeiro, executou seu bloco de instruções interrompendo o programa.
+
+&nbsp;
+
+### **Continue**
+
+&nbsp;
+
+**Tem a função de fazer com que a condição do comando de loop seja novamente testada, mesmo antes de alcançar o fim do comando**.
+
+Exemplo:
+
+~~~~Java
+    public static void main(String args[]){
+
+        for(int i = 0; i < 12; i++){
+            if ((i > 4) && (i < 8)){
+                continue;
+            }
+            //Apresenta na tela quando o i não estiver entre 4 e 8
+            System.out.println("i = " + i);
+        }
+    }
+~~~~
+
+&nbsp;
+
+O programa não irá imprimir os números 5, 6 e 7 devido à execução do comando **continue**.
+
+&nbsp;
+
+### **Break e Continue Rotulados**
+
+&nbsp;
+
+Tando **break** quanto **continue** podem ser ou não rotulados ou rotulados, **as rotuladas serão necessárias somente nas situações em que tiver um loop aninhado e precisar indicar qual quer encerrar ou a partir de qual deseja continuar a próxima interação**.
+
+Uma instrução **break** sairá do **loop** rotulado e não do **loop** atual se a palavra-chave **break** for combinada com um rótulo.
+
+&nbsp;
+
+**Exemplo de rótulo com break**:
+
+~~~~Java
+    public static void main(String[] args){
+
+        int y = 7;
+        externo:
+        for(int i = 0; i < 15; i++){
+            while (y > 3){
+                y++;
+                System.out.println("Dentro do Loop");
+                break externo;
+            }
+            System.out.println("Fora do loop");
+        }
+        System.out.println("Fora do Programa");
+    }
+~~~~
+
+&nbsp;
+
+A sentença "Dentro do Loop" será exibida uma vez, em seguida a instrução **break** rotulada será executada e o fluxo sairá do **loop** rotulado com o rótulo que foi declarado como "externo", então, a próxima linha de código exibirá "Fora do Programa.
+
+&nbsp;
+
+**Exemplo de rótulo com continue**:
+
+~~~~Java
+    public static void main(String[] args){
+
+        int y = 1;
+        externo:
+        for(int i = 0; i < 15; i++){
+            while (y > 3){
+                y++;
+                System.out.println("Dentro do Loop");
+                break externo;
+            }
+            System.out.println("Fora do loop");
+        }
+        System.out.println("Fora do Programa");
+    }
+~~~~
+
+&nbsp;
+
+A sentença "Dentro do Loop" foi executada 2 vezes, atendendo a condição de y < 3, depois de concluída essa instrução, o programa imprimiu 13 vezes a sentença "Fora do Loop", para concluir, quando a condição do **loop** externo for avaliada como falsa, o **loop i** será encerrado e a sentença "Fora do programa" será exibida.
+
+&nbsp;
+
+### **Break e Continue Não Rotulados**
+
+&nbsp;
+
+AS instruções não rotuladas saíram da estrutura do **loop** atual e prosseguirão na linha de código posterior ao bloco do **loop**.
+
+&nbsp;
+
+**Exemplo de não rótulada com break**:
+
+~~~~Java
+    public static void main(String [] args){
+
+        boolean pausa = true;
+        while(true){
+            if(pausa)`
+            System.out.println("Programa Pausado")/
+            break
+        }
+    }
+~~~~
+
+&nbsp;
+
+**Exemplo de não rótulada com continue**:
+
+~~~~Java
+    public static void main(String [] args){
+
+        for(int cont = 1; cont <= 8; cont++){
+            if(cont == 3){
+                continue;
+            }
+        }
+        System.out.println("nr: " + cont);
+    }
+~~~~
+
+&nbsp;
+
+No código acima, não foi impresso o número 3, pois ao chegar na condição, o programa encontrou um **continue** que mandou continuar a execução do programa.
