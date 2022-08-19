@@ -499,4 +499,337 @@ public void cadastraAnimal(){
 
 &nbsp;
 
-Continuar da pag. 150...
+**Sobreposição nada mais é do que reescrever um método que já existe**.
+
+Herança é herdado tudo que contém na classe pai, todos os atributos e métodos, portanto, imagine a situação: existe a classe **Aluno**, nela consta um atributo **idAluno** e um atributo **nome**, existe, ainda, um método chamado **imprimeTitulo()**, depois é criado outras duas classes, uma chamada **AlunoGraduacao** e outra **AlunoMestrado**, essas duas classes vão herdar da classe **Aluno**, portanto já vão possuir tudo que contém em **Aluno**.
+
+Agora na seguinte situação:, se nas classes **AlunoGraduacao** e **AlunoMestrado** for herdado de **Aluno**, isso significa que já consta o método **imprimeTitulo()**, agora, se for escrever um método com esse mesmo nome, isso seria **Sobreposição**, também chamado de **Reescrita**.
+
+Classe **Aluno**:
+
+~~~~Java
+public class Aluno {
+
+    //Atributos da classe aluno
+    int idAluno;
+    String nome;
+    String ra;
+    String endereco;
+
+    //Método imprimeTitulo
+    void imprimeTitulo(){
+        System.out.println(“Titulos do Aluno”);
+    }
+}
+~~~~
+
+&nbsp;
+
+Classe **AlunoGraduacao**:
+
+~~~~Java
+public class AlunoGraduacao extends Aluno {
+
+    //Atributo serie
+    String serie;
+
+    //Método imprimeTitulo
+    void imprimeTitulo(){
+    S   ystem.out.println(“Titulo de Graduação”);
+    }
+}
+~~~~
+
+&nbsp;
+
+Classe **AlunoMestrado**:
+
+~~~~Java
+public class AlunoMestrado extends Aluno {
+
+    //Atributo notaPosComp
+    double notaPosComp;
+
+    //Método imrpimeTitulo
+    void imprimeTitulo(){
+        System.out.println(“Tiulo de Mestrado”);
+    }
+}
+~~~~
+
+&nbsp;
+
+Será analisado a seguinte situação: existem duas classes que herdam o mesmo método **imprimeTitulo()**, que está na classe **Aluno**, cada classe tem uma reescrita específica, informando uma mensagem distinta, portanto, seu objeto irá informar esse tratamento e não o código que está na classe pau **Aluno**, será criado uma classe chamada **TestaAlunos**, contendo o método **main**, nesta classe, será colocando dois objetos, um do tipo **AlunoGraduacao** e outro tipo **AlunoMestrado**, e será chamado os métodos **imprimeTitulo()**.
+
+Classe **TestaAlunos**:
+
+~~~~Java
+public class TestaAlunos {
+    public static void main(String[] args) {
+
+        //Criado um objeto com os dados de um aluno de graduação
+        AlunoGraduacao ag = new AlunoGraduacao();
+
+        //Criado um objeto com os dados de um aluno de mestrado
+        AlunoMestrado am = new AlunoMestrado();
+
+        //Criado o metodo imprimeTitulo do aluno de graduação
+        ag.imprimeTitulo();
+
+        //Criado o metodo imprimetitulo do aluno de mestrado
+        am.imprimeTitulo();
+    }
+}
+~~~~
+
+Impressão no console:
+
+    Titulo de Graduação
+
+    Tiulo de Mestrado
+
+&nbsp;
+
+## **A Anotação @Override**
+
+---
+
+&nbsp;
+
+Quando é criado uma sobreposição, é costume utilizar a anotação **@Override**, que ``identifica que este método está sendo reescrito``.
+
+Quando é utilizado essa anotação, o código, além de legível, obriga ao compilador a aplicar as regras de reescrita para essa marcação.
+
+Classe **AlunoGraduacao**:
+
+~~~~Java
+public class AlunoGraduacao extends Aluno {
+
+    //Criado atributo serie
+    String serie;
+
+    //Criado método reescrito imprimeTitulo
+    @Override
+    void imprimeTitulo(){
+        System.out.println(“Titulo de Graduação”);
+    }
+}
+~~~~
+
+&nbsp;
+
+Classe **AlunoMestrado**:
+
+~~~~Java
+public class AlunoMestrado extends Aluno {
+
+    //Criado atributo notaPosComp
+    double notaPosComp;
+
+    //Criado método reescrito imprimeTitulo
+    @Override
+    void imprimeTitulo(){
+    System.out.println(“Tiulo de Mestrado”);
+    }
+}
+~~~~
+
+&nbsp;
+
+## **A Rescrita do Método Tostring()**
+
+---
+
+&nbsp;
+
+Analise a situação: é criado uma classe chamada **Pessoa**, após isso, é criado uma classe **TestaPessoa** com um método **main** e instanciado um objeto do tipo **Pessoa**, caso seja imprimido direto o objeto em si ao invés de ser imprimido os valores de atributo por atributo:
+
+Classe **Pessoa**:
+
+~~~~Java
+public class Pessoa {
+
+    //Declarado o atributo idPessoa
+    int idPessoa;
+
+    //Declarado o atributo nome da pessoa
+    String nome;
+}
+~~~~
+
+&nbsp;
+
+Classe **TestaPessoa**:
+
+~~~~Java
+public class TestaPessoa {
+
+    public static void main(String[] args) {
+
+    //Criado o objeto do tipo pessoa
+    Pessoa p1 = new Pessoa();
+
+    //Passa um valor para o idPessoa
+
+    p1.idPessoa = 1;
+
+    //Passa um valor para o nome da pessoa
+    p1.nome = “João”;
+
+    //Imprime os dados do objeto pessoa
+    System.out.println(p1);
+    }
+}
+~~~~
+
+&nbsp;
+
+Impressão no console:
+
+    main.Pessoa@1befab0
+
+&nbsp;
+
+Se for mandado a impressão de um objeto, a JVM procura na classe se ela tem um critério de formatação para apresentar este objeto, e é inserido esse critério nela pelo programador, fazendo a soreposição do método da classe **Object** chamado **toString()**, sendo assim, é na reescrita do método **toString()** que é definido como quer apresentar o objeto na impressão.
+
+Reescrita do método:
+
+~~~~Java
+public class Pessoa {
+    //Declarado o atributo idPessoa
+    int idPessoa;
+
+    //Declarado o atributo nome da pessoa
+    String nome;
+
+    @Override
+    public String toString() {
+        return “Código: “ + idPessoa + “ Nome= “ + nome;
+    }
+}
+~~~~
+
+&nbsp;
+
+Impressão no console:
+
+    Código: 1 Nome= João
+
+&nbsp;
+
+## **A Rescrita do Método Equals()**
+
+---
+
+&nbsp;
+
+Analise a situação: está sendo desenvolvido uma aplicação que cadastra cidade, para isso, é criado a classe **Cidade**, depois é criada a classe com o método **main** chamada **App**, os objetos do tipo **Cidade** serão armazenados em uma lista com objetos do tipo **Cidade**, nesta rotina, quando um usuário for excluir ou alterar uma **cidade**, será feita uma busca por código, o usuário digita um código e, por meio dele, será feito a pesquisa para encontrar o objeto em questão.
+
+O problema: o usuário digita somente um código, e não um objeto inteiro, portanto, como faremos para, mediante esse código, procurar um objeto? Quando a JVM compara dois objetos, ela verifica primeiramente se existe um critério de comparação para esse objeto, se existe, ela obedece ao critério que foi definido; esse critério, portanto, é definido na reescrita do método **equals()** que é mais um método da classe **Object**
+
+Classe **Pessoa**:
+
+~~~~Java
+public class Pessoa {
+    //Declarado o atributo idPessoa
+    int idPessoa;
+
+    //Declarado o atributo nome da pessoa
+    String nome;
+
+    @Override
+    public String toString() {
+        return “Código: “ + idPessoa + “ Nome= “ + nome;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return ((Pessoa)obj).idPessoa==this.idPessoa;
+    }
+}
+~~~~
+
+Nesa classe, será reescrito o método **equals()** e definido que o critério de comparação de objetos será apenas o atributo **idPessoa**, isso significa que, quando a **JVM** fizer uma comparação de objetos, o critério adotado por ela fazer essa comparação será somente a comparação do atributo **idPessoa**.
+
+~~~~Java
+import java.util.ArrayList;
+import java.util.List;
+
+public class TestaEquals {
+
+    public static void main(String[] args) {
+
+        //Cria lista para preencher os objetos
+        List dados = new ArrayList();
+        Pessoa p1 = new Pessoa();
+        p1.idPessoa = 1;
+        p1.nome = “Douglas”;
+        Pessoa p2 = new Pessoa();
+        p2.idPessoa = 2;
+        p2.nome = “Edson”;
+        Pessoa p3 = new Pessoa();
+        p3.idPessoa = 3;
+        p3.nome = “Fabio”;
+
+        //Cria um objeto chamado p4 somente com um id já existente
+        Pessoa p4 = new Pessoa();
+        p4.idPessoa = 3;
+
+        //Adiciona os objetos na lista
+        dados.add(p1);
+        dados.add(p2);
+        dados.add(p3);
+
+        //Remove da lista o objeto p4 que não foi adicionado
+        dados.remove(p4);
+
+        //Busca na lista o objeto p3
+        int indice = dados.indexOf(p3);
+        System.out.println(indice);
+        int total = dados.size();
+        System.out.println(total);
+    }
+}
+~~~~
+
+É criado uma lista e adicionado objetos nela do tipo **Pessoa**, depois, é criado um objeto do tipo **Pessoa** somente com um código que já existe em outro objeto; podemos notar que esse objeto fica sem nome e ele tem somente um código que é o mesmo de outro objeto já existente, depois é mandado remover da lista um objeto que não foi adicionado a ela, nesse momento, a **JVM** verifica se existe um critério que, para o caso, está definindo comparação apenas pelo atributo **idPessoa**, desta forma, a **JVM** percorre os objetos da lista e verifica se o objeto que foi mencionado para a remoção tem o **idPessoa**, e sendo encontrado o objeto, ela remove, depois é impimido o total de objetos da lista e pode-se identificar que ela foi realmente removida.
+
+&nbsp;
+
+## **Regras para Sobreposição em java**
+
+---
+
+&nbsp;
+
+Quando um método é sobreposto, ele não pode restringir um grau de acessibilidade do método sobreposto, ou seja, se existe um método.
+
+``Exemplo``: é alterado a classe **Aluno** e colocado o método **imprimeTitulo()** como **protected**, assim, os métodos sobrepostos por meio dele deverão conter o modificador de acesso como **protected** ou **public**
+
+~~~~Java
+public class Aluno {
+    int idAluno;
+    String nome;
+    String ra;
+    String endereco;
+
+    protected void imprimeTitulo(){
+        System.out.println(“Titulos do Aluno”);
+    }
+}
+~~~~
+
+Como vemos abaixo, a reescrita do método **imprimeTitulo()** deve ser com o modificador **protected** ou **public** não restringindo, assim, o grau de acessibilidade do método sobreposto.
+
+Classe **AlunoGraduacao**:
+
+~~~~Java
+public class AlunoGraduacao extends Aluno {
+    String serie;
+
+    @Override
+    protected void imprimeTitulo(){
+        System.out.println(“Titulo de Graduação”);
+    }
+}
+~~~~
