@@ -1,4 +1,4 @@
-# **Anotações Programação I - Unidade II**
+# **Anotações Programação I - Unidade I**
 
 &nbsp;
 
@@ -408,4 +408,86 @@ public static void main(String[] args){
 
 &nbsp;
 
-Pag 30...
+Elas são lançadas quando um problema de algum tipo ocorre e que efeito terá sobre o fluxo de seu programa.
+
+``Exceção é a instância de uma classe que possui a classe Exception em sua hierarquia de herança``.
+
+Quando uma exceção é lançada, o objeto de um subtipo ***Exception*** específico e instanciado e inserido no manipulador de exceções como um argumento para a cláusula ***catch***.
+
+~~~~Java
+try{
+	//Código
+}catch (ArrayIndexOutOfBoundsException e){
+	e.printStackTrace();
+}
+~~~~
+
+&nbsp;
+
+No exemplo acima, é a instância de uma classe chamada resumidamente de ArrayIndexOutOfBoundsException, como ocorre em qualquer outra objeto, pode-se chamar seus métodos.
+
+&nbsp;
+
+## **Hierarquia de Exceções**
+
+---
+
+&nbsp;
+
+Todas as classes de exceções são subtipos da classe ***Exception***, a qual é derivada da classe ***Throwable*** (que é derivada da classe ***Object***).
+
+<img src = "Imagens/Except.png">
+
+&nbsp;
+
+O Java define 2 tipos de exceções:
+
+* ``Exceções verificadas``: que herdam da classe ***Exception***. o código do cliente tem de lidar com as exceções verificadas lançadas pelo API, ou em uma cláusula ***try*** / ***catch*** ou encaminhando-o fora com a cláusula ***throws***.
+
+* ``Exceções não verificadas``: são as RuntimeException que também se estende de ***Exception***, no entando, todas as exceções que herdam de RuntimeException recebem tratamento especial, não há nenhuma exigência para o código do cliente para lidar com eles, portanto, eles são chamados de exceções não verificadas (***unchecked***)
+
+&nbsp;
+
+Ao decidir sobre exceções verificadas versus exceções não verificadas, sempre deve se perguintar "quais medidas o código pode tomar quando a exceção ocorrer?", ``se o cliente conseguir tomar alguma ação alternativa para recuperar a exceção, essa será a exceção verificada, se o cliente não puder fazer nada para contornar a exceção, essa será a exceção no verificada``.
+
+**Error** não são exceções, mas sim erros que jamais poderiam ter acontecido, erros indicam que alguma coisa está realmente muito errada na construção do código ou no ambiente de execução.
+
+&nbsp;
+
+## **Declaração de Exceções e a Interface Pública**
+
+---
+
+&nbsp;
+
+### ***Throws / Throw***
+
+&nbsp;
+
+Da mesma forma que um método precisa especificar que tipo, quantos argumentos aceitará e o que será retornado, as exceções que um método pode lançar devem ser declaradas (a menos que sejam subclasses de RuntimeException), a lista de exceções lançadas faz parte da interface pública de um método, a palavra-chave ***throws*** é usada na forma descrita abaixo:
+
+~~~~Java
+public void minhaFuncao() throws MyException1, MyException2{
+	//Código do método
+}
+~~~~
+
+&nbsp;
+
+Esse método é um tipo de retorno **void**, que não aceita argumentos e declara que lança exceções do tipo MyException1 e MyException2 (só porque o método declara que lança uma exceção não significa que sempre o fará, ele apenas informa que pode fazê-lo).
+
+O conceito é semelhante ao de **return**, mas enquanto **return** está devolvendo um resultado de dentro do método, **throws** está lançando uma exceção, nunca é possível considerar uma exceção como o resultado de um método, o objetivo do método é obter resultados sesm lançar exceções.
+
+~~~~Java
+public double divide(double dividendo, double divisor) throws ArithmeticException{
+	if(divisor == 0){
+		throw new ArithmeticException("Divisor não pode ser zero")/
+	}
+	//Resto do código
+	return 0;
+}
+~~~~
+
+&nbsp;
+
+``A principal diferença entre throw e throws é o uso e a funcionalidade, o throws é usado na assinatura do método para declarar exceção possivelmente lançadas por qualquer método; throw é usado para lançar exceção no código Java``.
