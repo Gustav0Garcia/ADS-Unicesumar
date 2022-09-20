@@ -205,4 +205,147 @@ O método estático **getInstance()** retorna uma instância da classe **Dvd** q
 
 &nbsp;
 
-página 48...
+Criando a classe Cds, será estendida a classe Dvd.
+
+~~~~Java
+public class Cds extends Dvd{
+
+}
+~~~~
+
+Provavelmente a IDE não destacou o nome da classe, forçando a implementação dos métodos da classe herdada, pois a classe herdada não é uma classe abstrata, porém, como a classe **Dvd** herda diretamente da classe abstrata, a classe **Cds** passa a poder reutilizar todos os atributos e métodos da classe **ItemAbstrato** e **Dvd**, como também definir suas particularidades e usá-las.
+
+~~~~Java
+public class Cds extends Dvd{
+
+    @Override
+    public void cadastrar(){
+        setCodigo(1);
+        setTitulo("The Best of Joy Division");
+        setSituacaoItem("L");
+
+        System.out.println("CD Cadastrado: " + " - Cod: " + getCodigo()+ " - Titulo: " + getTitulo() + " - Situação: " + getSituacaoItem());
+        System.out.println("CD Cadastrado utilizadno método abstrato " + "Herdado da classe abstrata ItemAbstrato");
+    }
+
+    @Override
+    public void imprimir(){
+        System.out.println("Imprimir Lista de CDs utilizando método" + "concreto da classe Dvds");
+    }
+
+    public void vender(){
+        System.out.println("CD Vendido utilizando método " + "concreto da classe Cds");
+    }
+
+    public static Cds getInstance(){
+        return new Cds();
+    }
+}
+~~~~
+
+Está sendo utilizado métodos da classe **ItemAbstrato** e também da classe **Dvd**, além, de escrever método exclusivos da classe **Cds**, como, método **vender()** e **getInstance()**, a classe **Cds** herda esses métodos, pois eles são públicos e concretos.
+
+&nbsp;
+
+## **Regras Sobre Classes e Métodos Abstratos**
+
+---
+
+&nbsp;
+
+Regras de classe e métodos abstratos:
+
+* Os métodos construtores não podem ser declarados como abstratos. Mesmo que a classe abstrata não possa ser instanciada, seus construtores podem inicializar os campos da classe que serão usados por subclasses, sendo imprescindível em praticamente todos os casos.
+
+* Métodos declarados como abstratos não pode sem privados (**private**).
+
+* Classes abstratas não podem contem métodos estáticos (**static**).
+
+* Os campos de uma classe abstrata serão herdados pelas classes descendentes e poderão ser usados por intâncias destas a não ser que sejam declarados como **private**.
+
+&nbsp;
+
+### **Criando a Classe Programa para Executar o Sistema**
+
+&nbsp;
+
+Para finalizar o sistema, será criado uma classe com o método **main** chamada **Programa, e nela será criado um menu e um método de escolha para que possa ser chamado todos os métodos implementados.
+
+~~~~Java
+public class Programa{
+    
+    public static void main (String[] args){
+        int opcao;
+        Dvd dvd;
+        Cds cds;
+
+        while(true){
+            System.out.println(" ");
+            System.out.println(" ----------------------------- ");
+            System.out.println("Digite 0 para SAIR ou a opcao abaixo:");
+            System.out.println("1 - Cadastrar DVD    " + " 2 - Emprestar DVD    " + " 3 - Devolver DVD    ");
+            System.out.println("4 - Cadastrar CDs    " + " 5 - Vender CD    " + " 6 - Imprimir CDs");
+            System.out.println("Opcao: ");
+
+            Scanner scan = new Scanner(System.in);
+            opcao = scan.nextInt();
+            System.out.println(" ----------------------------- ");
+            System.out.println(" ");
+
+            if(opcao == 0){
+                System.exit(0);
+            }
+            switch(opcao){
+                case 1:
+                    dvd = DVD.getInstance();
+                    dvd.cadastrar();
+                    break;
+                case 2:
+                    dvd = Dvd.getInstance();
+                    dvd.emprestar();
+                    break;
+                case 3:
+                    dvd = Dvd.getInstance();
+                    dvd.devolver();
+                    break;
+                case 4:
+                    cds = Cds.getInstance();
+                    cds.cadastrar();
+                    break;
+                case 5:
+                    cds = Cds.getInstance();
+                    cds.vender();
+                    break;
+                case 6:
+                    cds = Cds.getInstance();
+                    cds.imprimir();
+                    break;
+            }
+        }
+    }
+}
+~~~~
+
+&nbsp;
+
+## **O que são Interfaces?**
+
+---
+
+&nbsp;
+
+Interface é um recurso da orientação a objeto utilizado em Java que define ações que devem ser obrigatoriamente executadas, mas que cada classe pode executar de forma diferente.
+
+Em Java, uma interface é um tipo de referência, semelhante a uma classe, que pode conter apenas constantes, assinaturas de métodos e tipos aninhados, não há corpo de método.
+
+Interfaces não podem ser instanciadas, elas só podem ser implementadas por classes ou prorrogado por outras interfaces.
+
+&nbsp;
+
+## **Caracterísicas das Interfaces**
+
+---
+
+&nbsp;
+
+pag 56...
