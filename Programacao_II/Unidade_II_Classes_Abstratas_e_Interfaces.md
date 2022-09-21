@@ -348,4 +348,308 @@ Interfaces não podem ser instanciadas, elas só podem ser implementadas por cla
 
 &nbsp;
 
-pag 56...
+Interface tem a seguinte característica:
+
+* Uma interface não pode ser instanciada, mas podem ser definidos referências do seu tipo.
+
+Exemplo:
+
+~~~~Java
+MinhaInterface minhaInterface;
+~~~~
+
+Nessa situação não é utilizado o operador **new**.
+
+&nbsp;
+
+* Todos os métodos definidos são implicitamente do tipo **public** ou **abstract**, por essa razão, ao declarar um método em uma interface, não é necessário fornecer a palavra-chave **public**, os métodos não podem ter corpo definido, somente é definido sua assinatura.
+
+Exemplo:
+
+~~~~Java
+public interface minhaInterface{
+
+    void conectarBanco();
+}
+~~~~
+
+&nbsp;
+
+* Uma interface pode estender mais de uma interface, é importante lembrar que uma classe pode estender somente de uma outra classe.
+
+Exemplo:
+
+~~~~Java
+public interface MinhaInterface extends InterfaceA, InterfaceB{
+
+}
+~~~~
+
+&nbsp;
+
+* A classe que implementa uma interface deve obrigatoriamente implementar todos os métodos definidos na interface.
+
+* ``Uma interface é formalmente uma classe abstrata, somente com atributos constantes`` (**final**) ``e estáticos`` (**static**) ``e métodos sem corpo``. Estes deverão ser implementados pelas classes que irão implementar a interface, é importante observar que os atributos na interface precisam ser inicializados.
+
+Exemplo:
+
+~~~~Java
+public interface MinhaInterface{
+
+    static final int val01 = 10;
+    static final float val02 = (float) 2.8;
+}
+~~~~
+
+&nbsp;
+
+## **Modelando um Projeto com Interfaces**
+
+---
+
+&nbsp;
+
+Será implementado um sistema de cadastro de Blu-Rays, utilizadno a interface como principal recurso.
+
+As interfaces são um conjunto de operações que definem os serviços de uma classe ou de um componente, nesse caso, as interfaces existirão apenas na classe.
+
+<img src = "Imagens/Inter.png">
+
+&nbsp;
+
+Na figura acima a linha tracejada e com uma ponta de flecha vazada demonstra que a classe **Bluray** implementa a interface, outra forma de mostrar que uma classe implementa uma interface é desenhar uma linha com um círculo em uma das extremidades com o nome dessa interface.
+
+**As interfaces e seus métodos sempre são abstratos em Java**.
+
+&nbsp;
+
+## **Implementando um Projeto com Interfaces**
+
+---
+
+&nbsp;
+
+### **Criando a Classe ItemBluRay**
+
+&nbsp;
+
+Primeiramente será criado um projeto chamado **blurayInterface**, com uma classe chamava **ItemBluRay** e o nome do pacote **blurayInterface**
+
+Será criado fois atributos e implementado os métodos gets e sets.
+
+~~~~Java
+public class ItemBluRay{
+    private double preco;
+    private String nomeCliente;
+
+    public double getPreco(){
+        return preco/
+    }
+
+    public void setPreco(double preco){
+        this.preco = preco;
+    }
+
+    public String getNomeCliente(){
+        return nomeCliente;
+    }
+
+    public void setNomeCliente(String nomeCliente){
+        this.nomeCliente = nomeCliente;
+    }
+}
+~~~~
+
+&nbsp;
+
+### **Criando a Interface InterfaceBluRay**
+
+&nbsp;
+
+Na IDE, deve clicar com o botão direito do mouse sobre o pacote do prjeto e no menu escolher **Novo -> Interface Java... e adicionar InterfaceBluRay** como nome da Interface e clicar em finalizar
+
+~~~~Java
+public interface InterfaceBluRay{
+
+}
+~~~~
+
+&nbsp;
+
+Na interface deve ser criado um atributo estático e fois métodos:
+
+~~~~Java
+public interface InterfaceBluRay{
+    final static double PROMOCAO = 20; //20% de desconto
+    
+    void adicionarLista(ItemBluRay obj);
+    void imprimirLista();
+}
+~~~~
+
+&nbsp;
+
+Está sendo utilizado um atributo do tipo **final** e **static**, a ``instrução final`` insica que a classe, método ou variável assim declarada tem uma única atribuição que se mantém constante, ou seja, não pode ser alterada no decorrer do processamento. A ``instrução static`` é utilizada para se criar uma variável que poderá ser acessada por todas as instâncias de objetos desta classe como uma variável comum.
+
+**A vantagem de ter um atributo estático e final é que ao alterar a variável estática, todo o sistema receberá o novo valor atualizado**.
+
+``Não constam nos métodos os modificadores de acesso public, pois, todos os métodos e atributos de uma interface são públicos``.
+
+&nbsp;
+
+### **Criando a Classe Bluray e Estendendo a Interface**
+
+&nbsp;
+
+Agora será criado a classe **Bluray** acrescentando a palavra resertvada **implements** e a Interface **InterfaceBluRay**.
+
+~~~~Java
+public class Bluray implements InterfaceBluRay{
+
+}
+~~~~
+
+&nbsp;
+
+Provavelmente na IDE haverá um destaque no nome para que seja criado todos os métodos exigidos pela interface, a interface obriga o uso de todos os métodos declarados, mas pode ser decidido como implementá-los.
+
+~~~~Java
+public class Bluray implements InterfaceBluRay{
+
+    @Override
+    public void adicionarLista(ItemBluRay obj){
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void imprimirLista(){
+        throw new UnsupportedOperationException("Not supported yet.");        
+    }
+}
+~~~~
+
+``Como demonstrado acima, Provavelmente na IDE será gerado os pmétodos automaticamente e adciionado a anotação @Override, pois estára sobrescrevendo os métodos da Interface``
+
+Abaixo a reescrita com as informações e instruções corretas:
+
+~~~~Java
+public class Bluray implements InterfaceBluRay{~
+
+    private Vector<ItemBluRay>listaBluray = new Vector<ItemBluRay>();
+
+    @Override
+    public void adicionarLista(ItemBluRay obj){
+        this.listaBluray.add(obj);
+    }
+
+    @Override
+    public void imprimirLista(){
+        System.out.println("Lista de Blu-Rays");
+
+        for(int i = 0; i < this.listaBluray.size(); i++){
+            System.out.println();
+            System.out.println("Nome do Cliente: ")/
+            System.out.println(this.listaBluray.get(i).getNomeCliente());
+            System.out.println("Preco do Blu-Ray: ");
+            System.out.println(this.listaBluray.get(i).getPreco());
+        }
+        System.out.println("..........");
+        System.out.println();       
+    }
+}
+~~~~
+
+&nbsp;
+
+Nessa classe será criado um **vetor de ItemBluray** para armazenar os objetos **ItemBluRay** e assim obter uma lista.
+
+O método **adicionarLista()** recebe por parâmetro o objeto salvo na classe( Programa que será implementado a seguir). O método **imprimirLista()** apresenta a relação de Blu-Ray salvos no programa.
+
+Abaixo o método para realizar cadastro de todos os Blu-Rays ( como ele não foi implementado na Interface, será criado diretamente na classe):
+
+~~~~Java
+public void cadastrarBluRay(ItemBluRay obj){
+    Scanner scan = new Scanner(System.in);
+    System.out.println("Nome do cliente: ");
+    obj.setNomeCliente(scan.nextLine());
+    System.out.println("Valor do Blu-Ray: ");
+    obj.setPreco(scan.nextDouble());
+}
+~~~~
+
+&nbsp;
+
+O métpdp **cadastrarBluRay()** recebe por parâmetro o objeto **ItemBluRay** da classe **Programa** que será implementada a seguir.
+
+&nbsp;
+
+### **Criando a Classe Programa**
+
+&nbsp;
+
+Abaixo o código para a classe **Programa**
+
+~~~~Java
+public class Programa{
+
+    public static void main(String[] args){
+        Bluray objBluray = new Bluray()/
+        ItemBluRay objItem;
+
+        while(true){
+            objItem = new ItemBluRay();
+
+            System.out.println("1 - Cadastrar Blu-Ray");
+            System.out.println("2 - Imprimir lista de Blu-Ray");
+            System.out.println("3 - Cadastrar Blu-Ray com Descontos");
+            System.out.println("4 - Fim");
+            System.out.println("Entre com a opcao desejada: ");
+
+            Scanner scan = new Scanner(System.in);
+            int opcao = scan.nestInt();
+            if(opcao == 4){
+                break;
+            }
+            switch(opcao){
+                case 1:
+                    objBluray.cadastrarBluRay(obkItem);
+                    objBluray.adicionarLista(objItem);
+                    break;
+                case 2:
+                    objBluray.imprimirLista();
+                    break;
+                case 3:
+                    objBluray.cadastrarBluRay(objItem);
+                    System.out.println("Valor do Blu-Ray com promocao de: ");;
+                    System.out.println(InterfaceBluRay.PROMOCAO);
+                    double valorDesconto = objItem.getPreco() - (objItem.getPreco() * InterfaceBluRay.PROMOCAO) / 100;
+                    objItem.setPreco(valorDesconto);
+                    objBluray.adicionarLista(objItem);
+                    System.out.println();
+                    System.out.println();
+                    break;
+                default:
+                System.out.println("Opcao invalida");
+            }
+        }
+    }
+}
+~~~~
+
+&nbsp;
+
+## **Comparando Interfaces e Classes Abstratas**
+
+---
+
+&nbsp;
+
+Uma classe dó pode estender uma única classe, iremos supor que a classe **Bluray** já estenda uma classe diferente, digamos **Midia**, ela então não poderá estender uma segunda classe, mas cada classe pode implementar quantas interfaces quiser.
+
+Os projetistas do Java optaram por não dar suporte à heranã múltipla, porque ela torna a linguagem muito complexa.
+
+Ao invés disso, as interfaces suportam a maioria dos benefícios da herança múltipla e, ao mesmo tempo, evitam as complexidades e ineficiências.
+
+Abaixo quadro comparativo entre diferenças e similaridades entre Classes Abstratas e Interfaces:
+
+<img src = "Imagens/Inter2.png">
