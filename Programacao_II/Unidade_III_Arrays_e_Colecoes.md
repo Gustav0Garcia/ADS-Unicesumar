@@ -254,4 +254,179 @@ for (int i = 0; i < carros.length; i++) {
 
 &nbsp;
 
-Pag 83
+``Java difere das outras linguagens, quando é preciso passar argumentos po valor ou referência, o Java não permite que escolha entre passar cada argumento por valor ou referência. Quando é trabalhado com variáveis de tipos primitivos, estas sempre serão passadas por valor. Quando é pbjeto, estes não são passados para o método e sim a referência desse objeto``.
+
+``Nesse caso, a referência é passada por valor, ou seja, é feita uma cópia da referência do objeto e passado esta cópia para o método chamado, permitindo assim, por meio da referência, acessar o objeto e manipulá-lo se necessário``.
+
+``No caso de retornar informações de um método mediante a instrução return, a regra é praticamente a mesma, Variáveis do tipo de dado primitivo são retornadas por valor, ou seja, devolvida uma cópia cujos objetos são retornados por referência``.
+
+**Arrays** em Java são tratados como objetos, sendo assim, os **Arrays** também são passados para os métodos como referência, significando que pode manipular elementos dos **Arrays** originais do **chamador**. Para isso, basta passar para o método chamado o nome do **Array** sem colchetes, que na verdade é uma referência para um objeto que contém os elementos do **Array**.
+
+~~~~Java
+int[] temperaturaHora = new int[24];
+modificadorArrays(temperaturaHora);
+~~~~
+
+&nbsp;
+
+O método **modificarArray** recebe como argumento a variável **temperaturaHora**, sem colchetes, que contém uma referência para um **Array** de int de 24 elementos, para que isso seja possível, o método que recebe o **Array** deve contem em sua lista de argumentos um argumento que seja um **Array** ou vários, se mais de um **Array** for recebido pelo método.
+
+~~~~Java
+void modificadorArray(int[] a)
+~~~~
+
+&nbsp;
+
+No código acima, pode perceber que o método **modificarArray** espera receber no argumento **a** um **Array** do tipo int, nesse caso, quando o método chamado utilizar o **Array a**, na verdade ele estará se referindo ao **Array real** no chamador que é **temperaturaHora**.
+
+&nbsp;
+
+## **Exemplos com Arrays**
+
+---
+
+&nbsp;
+
+Será criado uma classe que declara e aloca um **Array** de 10 elementos na memória, em seguida, irá recuperar o valor contido nos elementos desse **Array** e imprimir em uma janela o índice e o valor respectivo.
+
+~~~~Java
+importa javax.swing.*;
+
+public class Exemplo1{
+
+    public static void main(String[] args){
+        int[] array; //Declara referência para um array
+        array = new int[10]; //Cria um array com 10 elementos
+        Strin saida = "Índice\tValor\n";
+
+        ///Adicionando o valor de cada elemento do Array na variável saida
+        for(int i = 0; i < array.length; i++){
+            saida += i + "\t" + array[i] + "\n";
+        }
+
+        JTextArea saidaArea = new JTextArea();
+        saidaArea.setText(saida);
+
+        JOptionPane.ShowMessageDialog(null, saidaArea, "Criando um Array de inteiros", JOptionPane.INFORMATION_MESSAGE);
+
+        System.exit(0);
+    }
+}
+~~~~
+
+&nbsp;
+
+Foi declarado a variável **array** capaz de referir-se a uma **Array** de elementos **int**, depois foi utilizado o perador **new** para construir o **Array** e alocar os 10 elementos na memória.
+
+Foi declarado uma variável do tipo **String** chamada **saida**, na qual é responsável por armazenar os índices e os valores dos elementos para, posteriormente, serem exibidos em um diálogo de mensagem.
+
+A estrutura **for** foi utilizada para adicionar o índice e o valor de cada elemento do **Array saida**, o uso da contagem na variável **i** se inicia com o, desse modo, o laço irá acessar cada elemento do **Array** iniciando por 0.
+
+O uso do **array.length** para recuperar o comprimento do **Array**.
+
+Para o segundo exemplo, é semelhante ao anterior, mas a diferença é que agora será inicializado os elementos do **Array**, apresentar o **Array** incializado e, em seguida, somar os elementos deste **Array** e será apresentado essa soma em um diálogo de mensagem.
+
+~~~~Java
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+
+public class Exemplo2{
+
+    public static void main(String[] args){
+        //Cria um Array com 6 elementos
+        int[] array = {10, 15, 25, 3, 8, 7};
+        int total = 0;
+        String saida = "Índice\tValor\n";
+
+        //Adicionando o valor de cada elemento do Array na variável saida
+        for(int i = 0; i < array.length; i++){
+            total += array[i];
+            saida += i + "\t" + array[i] + "\n";
+        }
+        saida += "\n\nA soma dos elementos do array é: " + total;
+        
+        JTextArea saidaArea = new JTextArea();
+        saidaArea.setText(saida);
+
+        JOptionPane.showMessageDialog(null, saidaArea, "Criando um Array de Inteiros", JOptionPane.INFORMATION_MESSAGE);
+
+        System.exit(0);
+    }
+}
+~~~~
+
+&nbsp;
+
+A diferença para o exemplo anterior, é qe foi declarada a variável **array** que faz referência a um **Array** do tipo **int**, com os valores (10, 15, 25, 3, 8, 7), quando o programa executar, automaticamente um **Array** com 6 elementos será alocado na memória e já inicializado.
+
+Foi declarada uma variável **total** do tipo **int**, para poder armazenar a soma dos valores dos elementos do **Array**, e a qual, posteriormente a soma será feita com base no valor do elemento.
+
+O laço **for** foi utilizado para recuperar o valor do **Array** por meio da expressão **array[i]**.
+
+Por fim, é atribuído à variável **saida** um texto apresentando o total da soma.
+
+&nbsp;
+
+Agora um exemplo utilizando **Arrays multidimensionais** e passagem de **Array** por referência, será demonstrado a inicialização de dois **Arrays** bidimencionais e o uso de laços de repetição aninhados **for** para percorrer os **Arrays**.
+
+~~~~Java
+import java.awt.Container;
+import javax.swing.JApplet;
+import javax.swing.JTextArea;
+
+public class Exemplo3 extends JApplet{
+    JTextArea saida Area;
+
+    @Override
+    public void init(){
+        super.init();
+
+        saidaArea = new JTextArea();
+        Container container = getContestPane();
+        container.add(saidaArea);
+
+        int[][] array1 = {{1,2,3}, {4,5,6}};
+        int[][] array2 = {{1,2}, {3}, {4,5,6}};
+
+        saidaArea.setText("Os valores do array1 são\n");
+        buildSaida(array1);
+
+        saidaArea.apprend("Os valores do array2 são\n");
+        buildSaida(array2);
+    }
+
+    public void buildSaida(int[][] array){
+        //Percorre as linhas do array com um for
+        for(int linha = 0; linha < array.length; linha++){
+            //Percorre as colunas da linha corrente com outro for
+            for(int coluna = 0; coluna < array[linha].length; coluna++){
+                saidaArea.apprend(array[linha][coluna] + " ");
+            }
+            saidaArea.append("\n");
+        }
+        saidaArea.append("\n");
+    }
+}
+~~~~
+
+&nbsp;
+
+O primeiro **Array** é referenciado pela varável **array1**, criado com seis elementos em duas subllistas, se trata de um **Array** com duas linhas e 3 colunas em que a primeira sublista é inicializada com os valor (1, 2, 3) e a segunda sublista com os valores (4, 5, 6).
+
+O segundo **Array** é referenciado pela variável **array2**, também fornece seis elementos, porém, inicializados em 3 sublistas com os valor (1, 2), (3) e (4, 5, 6).
+
+O método **buildSaida**, é responsável por percorrer os elementos do **Array** passado como parâmetro para e apresentar em um diálogo de mensagem os valores de cada elemento.
+
+No exemplo foi passado na primeira chamada do método **buildSaida** a variável **array1** e **array2** na segunda, desta maneira, o método tem a capacidade de percorrer os elementos dos dois **Arrays** e apresentar no diálogo de mensagem os valores de cada elemento do **Array**.
+
+O uso dos laços **for** para percorrer o **Array** bidimensional, no laço externo **for**, foi utilizdo a expressão **array.length** para determinar o número de linhas do **Array**. Para determinar o número de colunas do **Array**, foi utilizado a expressão **array[linha].length** para determinas o número de colunas na linha corrente do **Array**, permitindo, assim, determinar o número exato de colunas em cada linha.
+
+&nbsp;
+
+## **Visão Geral das Coleções**
+
+---
+
+&nbsp;
+
+Pag 92...
