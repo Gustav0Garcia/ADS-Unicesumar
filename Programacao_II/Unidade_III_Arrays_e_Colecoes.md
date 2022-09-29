@@ -429,4 +429,149 @@ O uso dos laços **for** para percorrer o **Array** bidimensional, no laço exte
 
 &nbsp;
 
-Pag 92...
+Quando é trabalhado com estruturas de **Coleções**, o desenvolvedor não precisa se preocupar como estas estruturas foram criadas e sim qual a **Coleção** que ela irá utilizar e em que determinada situação se encontra isso, graças às **interfaces** que a estrutura de **coleções** fornece.
+
+As **interfaces** definem várias operações a serem realizadas genericamente sobre vários tipos de **Coleções** minimizando a quantidade de código que um programador precisa escrever para criar e manipular **Coleções**.
+
+``O conjunto de interfaces e classes de coleções contidos na API Java constitui o chamado Framework Collections que tem por raíz duas intefaces básicas: Collection, utilizada para manipular coleções onde os elementos são objetos individuais, e Map, onde se mapeia uma chave única para um valor específico, por meio de uma estrutura de pares de objetos, no qual um é utilizado como chave de acesso``.
+
+**Algumas das principais interfaces fornecidas pelo pacote java.util.*:**
+
+* ColLection - interface raiz da hierarquia de Coleções a partir da qual se derivam as interfaces Set e List
+
+* Set - dá relevância à exclusividade, ou seja, contém elementos únicos
+
+* List - interface onde o índice tem relevância. Esta interface possui divcersas operações relacionadas ao índice que outras interfaces não list não têm.
+
+* Map - diz respeito a identificadores únicos, onde se mapeia uma única chave para um determinado valor. Para os Maps são associados chaves e valores onde estas não podem ser duplicadas, ou seja, cada chave pode mapear somente um valor.
+
+* Queue - o mesmo que fila, geralmente utilizada para se manter uma lista de execuções a serem processadas. A ela se atribui o conceito de FIFO (First In, First Out).
+
+**Representação da hierarquia de interfaces e classes para coleções**:
+
+<img src = "Imagens/InterCole.png">
+
+&nbsp;
+
+## **A Inteface List**
+
+---
+
+&nbsp;
+
+É uma **Collection** que permite elementos duplicados de maneira ordenada, onde o programador tem controle preciso sobre onde o elemento está inserido na lista.
+
+Assim como os **Arrays**, essa interface também é baseada em índice, onde o primeiro elemento da lista é **zero**.
+
+``Uma vantagem que uma coleção lista possui sobre as coleções não list é a grande variedade de métodos relacionados com índices, como o get(int index), indexOf(Object o), add(int index, Object obj), entre outros``.
+
+**A interface List possui 3 classes que a implementa**: **ArrayList**, **LinkedList** e **Vector**.
+
+No **ArrayList**, deve ser considerado esse conjunto como um **Array** redimensionável, isto é, que pode crescer. Pois, além de implementar a interface **List**, essa classe fornece métodos que permitem manipular o tamanho da matriz que é usada internamente para armazenar a lista.
+
+Cada instância de uma **ArrayList** possui uma capacidade que define o tamanho da matriz usada para armazenar os elementos da lista, quando é adicionado um elemento a uma **ArrayList**, sua capacidade aumenta automaticamente.
+
+**Exemplo**:
+
+~~~~Java
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+
+public class Exemplo4{
+
+    public static void main(String[] args){
+
+        List<String> listaFrutas = new ArrayList<String>();
+        String s = "uva";
+        listaFrutas.add("melancia");
+        listaFrutas.add(s);
+        listaFrutas.add("caju");
+
+        String saida = "";
+        saida += "Frutas da Lista: " + listaFrutas.toString();
+        saida += "\nTotal de Frutas na lista: " + listaFrutas.size();
+        saida += "\nA lista possui caju? " + listaFrutas.contains("caju");
+        listaFrutas.remove("uva");
+
+        saida += "\nTotal de Frutas na lista " + "após remover uva: " + listaFrutas.size();
+        saida += "\nFrutas da Lista: " + "após remover uva: " + listaFrutas.toString();
+        saida += "\nÍndice da Fruta " + "caju na lista: " + listaFrutas.indexOf("caju");
+
+        JTextArea saidaArea = new JTextArea();
+        saidaArea.setText(saida);
+
+        JOptionPane.showMessageDialog(null, saidaArea, "Trabalhando com ArrayList", JOptionPane.INFORMATION_MESSAGE);
+
+        System.exit(0);
+    }
+}
+~~~~
+
+&nbsp;
+
+Quando é declarado o **ArrayList**, não houve necessidade de declarar o tamanho, pois, é graças a capacidade que o **ArrayList** tem de definir o seu tamanho automaticamente quando adicionado ou removido um objeto da lista.
+
+Foi utilizado a sintaxe **<String>** no **ArrayList**, pois, esse tipo de programação segue o princípio da **POO** (**Programação Orientada a Objetos**) de "programas para uma interface" fazendo o uso de genéricos para declarar o tipo de uma coleção.
+
+Outro ponto interessante foi a possibilidade de perguntar ao **ArrayList** se ele possuí determinadas frutas na lista por meio do método **listaFrutas.contains()**.
+
+De vez utilizar algum laço de repetição para percorrer os elementos, pode apenas ser utilizado o método **listaFrutas.indexOf()**
+
+&nbsp;
+
+**Exemplo utilizando classificação por ordem alfabética**:
+
+~~~~Java
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+
+public class Exemplo5{
+
+    public static void main(String[] args){
+        List<String> listaNomes = nre ArrayList<String>();
+        listaNomes.add("Maria");
+        listaNomes.add("João");
+        listaNomes.add("José");
+        listaNomes.add("Adriano");
+        listaNomes.add("Willian");
+        listaNomes.add("Patrícia");
+
+        String saida = "";
+        saida += "Lista desordenada: " + listaNomes;
+
+        Collections.sort(ListaNomes);
+
+        saida += "\nLista ordenada: " + listaNomes;
+
+        JTextArea saidaArea = new JTextArea();
+        saidaArea.setText(saida);
+
+        JOptionPane.showMessageDialog(null, saidaArea, "Trabalhando com ArrayList", JOptionPane.INFORMATION_MESSAGE);
+
+        System.exit(0);
+    }
+}
+~~~~
+
+&nbsp;
+
+Foi declarado o **ArrayList** de **String**, posteriormente utilizado o método **listaNomes.add()** para adicionar a lista, nomes de pessoas de forma desordenada.
+
+A variável **saida** foi adicionado os nomes contidos na lista antes de ser realizado a ordenação.
+
+Foi utilizado os métodos **sort()** da classe **Collections** para realizar a classificação, ou melhor, ordenação da lista, em seguida foi recuperado novamente os nomes contidos na lista e demonstrar a ordenação.
+
+&nbsp;
+
+## **A Inteface Set**
+
+---
+
+&nbsp;
+
+Pag 98...
