@@ -574,4 +574,150 @@ Foi utilizado os métodos **sort()** da classe **Collections** para realizar a c
 
 &nbsp;
 
-Pag 98...
+``A interface Set é uma Collection que não permite elementos duplicados``.
+
+O que determinará que dois objetos seja idênticos é o método **equals()**, situação onde só um objeto poderá ficar no **set**, ou seja, se tentar adicionar um elemento que já existe nele, o método **add()** retornará **false** e o elemento não será adicionado.
+
+As três classes que implementam **Set** são: **HashSet**, **LinkedHashSet** e **TreeSet**.
+
+Exemplo abaixo será codificado e analisando utilizando **HashSet**, esta classe trata-se de um conjunto **Set** não ordenado e não classificado, pode utilizar essa classe quando quiser obter um conjunto sem elementos duplicados sem precisar de ordem na sua iteração.
+
+**HashSet** remove qualquer duplicidade existente na Collection.
+
+~~~~Java
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+
+public class Exemplo6{
+
+    String saida = "";
+    private String[] cores = {"vermelho", "branco", "azul", "verde", "cinza", "laranja", "bronzeado", "branco", "ciano", "pêssego", "cinza", "laranja"};
+
+    public static void main(String[] args){
+        new Exemplo6();
+    }
+
+    public Exemplo6(){
+        List lista;
+
+        lista = new ArrayList(Arrays.asList(cores));
+        saida += "Lista com elementos duplicados: ";
+        saida += "zn" + lista;
+
+        this.gerarListaNaoDuplicada(lista);
+
+        JTextArea saidaArea = new JTextArea();
+        saidaArea.setText(saida);
+
+        JOptionPane.showMessageDialog(null, saidaArea, "Trabalhando com Sets", JOptionPane.INFORMATION_MESSAGE);
+
+        System.exit(0);
+    }
+
+    public void GerarListaNaoDuplicada(Collection collection){
+        Set set = new HashSet(collection);
+        Iterator iterator = set.iterator();
+
+        saida += "\n\nLista com elementos não duplicados\n";
+
+        while(iterator.hasNext()){
+            saida += iterator.next() + " ";
+        }
+    }
+}
+~~~~
+
+&nbsp;
+
+É utilizado um **HasSet** para remover **Strings** duplicadas de uma **ArrayList**. 
+
+O método **gerarListaNaoDuplicada** recebe como argumento uma **collection** onde é construído um **HasSet** desta Collection, quando esta construção é realizada, quaisquer elemento duplicado na Collection, nesse caso, o **ArrayList** declarado e criado é removido.
+
+Foi declarado um **Array cores** com nomes duplicados (branco, cinza e laranha), na construção do **ArrayList** é utilizado o **Array** de cores para criar a lista de cores duplicadas, depois de construir o **HashSet** com base na lista de cores duplicadas, foi utilizado um **Iterator** para poder acessar os elementos do **HashSet**.
+
+Foi obtido posterior, um **Iterator** de **HashSet** e utilizado os métodos **hasNext** e **next** de **Iterator** para acessar os elementos de **HashSet**
+
+No exemplo abaixo, caso precise ordenar os elementos, é utilizado a classe **TreeSet** da interface **SortedSet** que estende **Set**.
+
+A interface **SortedSet** mantém seus elementos em ordem natural ou uma ordem especificada por um **Comparator**.
+
+A classe **TreeSet** implementa **SortedSet** e cria uma estrutura de árvore garantindo que os elementos estejam ordenados de forma ascendente, de acordo com a ordem natural.
+
+~~~~Java
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+
+public class Exemplo7{
+
+    String saida = "";
+    private String[] cores = {"vermelho", "branco", "azul", "verde", "cinza", "laranja", "bronzeado", "branco", "ciano",  "pêssego", "cinza", "laranja"};
+
+    public static void main(String[] args){
+        new Exemplo7();
+    }
+
+    public Exemplo7(){
+        TreeSet tree = new TreeSet(Arrays.asList(cores));
+
+        saida += "\nSet de elementos não " + "duplicados e ordenados:\n";
+        this.mostrarSet(tree);
+
+        saida += "\n\nSubconjunto de TreeSet " + "menor que 'laranja':\n";
+        this.mostrarSet(tree.headSet("laranja"));
+
+        saida += "\n\nSubconjunto de TreeSet " + "maior que 'laranja':\n";    
+        this.mostrarSet(tree.tailSet("laranja"));    
+
+        saida += "\n\nPrimeiro elemento de set: " + tree.first();
+        saida += "\nÚltimo elemento de set: " + tree.last();
+
+        JTextArea saidaArea = new JTextArea();
+        saidaArea.setText(saida);
+
+        JOptionPane.showMessageDialog(null, saidaArea, "Trabalhando com Sets", JOptionPane.INFORMATION_MESSAGE);
+
+        System.exit(0);
+    }
+
+    private void mostrarSet(SortedSet ss){
+        Iterator iterator = ss.iterator();
+
+        while(iterator.hasNext()){
+            saida += iterator.next() + " ";
+        }
+    }
+}    
+~~~~
+
+&nbsp;
+
+Criou-se um objeto **TreeSet** com base no **Array cores** e atribui uma referência para esse objeto a **tree**.
+
+Depois, é realizado uma chamada para o método **headSet** no qual retorna um subconjunto de **TreeSet** com elementos menores que "**laranja**", para retornar os elementos maiores que ou igual a "**laranja**", é realizado uma chamada para o método **tailSet**, quaisquer alterações realizadas por meios destas duas visões, **headSet** e **tailSet**, serão refletidas em **TreeSet**.
+
+Foi chamado os método **first** e **last**, estes são responsáveis por obter o menor e o maior elemento, respectivamente.
+
+O método **mostrarSet** recebe como argumento um **sortedSet** e o imprime quando é realizado a chamada deste método.
+
+E o método **set** ordenado, para os elementos menores que "**laranja**" e os elementos maiores que ou igual a "**laranja**", respectivamente
+
+&nbsp;
+
+## **A Inteface Map**
+
+---
+
+&nbsp;
+
+Pag 103...
