@@ -720,4 +720,149 @@ E o método **set** ordenado, para os elementos menores que "**laranja**" e os e
 
 &nbsp;
 
-Pag 103...
+Embora as classes **SortedMap**, **Hashtable**, **HashMap**, **TreeMap** e **LinkedHashMap** sejam consideradas coleções, nenhuma destas estendem de Collection como as classes que implementam as interfaces Set e List.
+
+Deve ser considerado um objeto **Map** como um objeto que mapeia chaves para valores não permitindo que existam chaves duplicadas (assim como **Sets**, **Maps** conta apenas com o método **equals ()**) para determinar se as chaves são iguais ou diferentes) e que cada chave pode ser mapeada para no máximo um valor.
+
+Este tipo de mapeamento é chamado de mapeamento um para um, um objeto **Map** difere de um **Set** no fato de que o **Map** possui chave e valor, enquanto **Set** possui somente chave.
+
+A interface que estende **Map** responsável por manter suas chaves ordenadas é o **SortedMap**.
+
+Implementações realizadas com **Maps** permitem buscar um valor com base em uma determinada chave, recuperar uma coleção apenas dos valores ou apenas das chaves.
+
+Abaixo exemplo utilizadno **HasMap** para contar o número de **Strings** que iniciam com uma determinada letra.
+
+~~~~Java
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+
+public classe Exemplo8{
+
+    private static String[] nomes = {"João", "José", "Pedro", "Carlos", "Jaqueline", "Matheus", "Marcelo"};
+
+    public Exemplo8(){
+        HashMap map = new HashMap();
+        Integer i;
+
+        for(int j = 0; j < nomes.length; j++){
+            i = (Integer) map.get(new Character(nomes[j].charAt(0)));
+
+            if(i == null){
+                map.put(new Character(nomes[j].charAt(0)), new Integer(1));
+            }else{
+                map.put(new Character(nomes[j].charAt(0)), new Integer(i.intValue() + 1));
+            }
+        }
+
+        this.geraSaidaMap(map);
+    }
+
+    private void geraSaidaMap(Map mapRef){
+        String saida = "";
+        saida += "Número de palavras iniciadas com letra: ";
+        saida += "\n" + mapRef.toString();
+        saida += "\nQuantidade de valores do Map: " + mapRef.size();
+        saida += "\né vazio?: " +mapRef.isEmpty();
+
+        JTextArea saidaArea = new JTextArea();
+        saidaArea.setText(saida);
+
+        JOptionPane.showMessageDialog(null, saidaArea, "Trabalhando com Maps", JOptionPane.INFORMATION_MESSAGE);
+
+        System.exit(0);
+    }
+
+    public Static void main(Stroing[] args){
+        new Exemplo8();
+    }
+}
+~~~~
+
+&nbsp;
+
+Foi construído um **HashMap** para armazenar a quantidade de palavras **nomes** que inicial por uma determinada letra em **map**, sendo exxe armazenamento feito no laço **for**.
+
+Posterior, foi realizado uma chamada para o método **get** de **map** para recuperar do **HashMap** a primeira letra de uma **String** em nomes utilizando **Character**, se não for encontrato um objeto mapeado em **HashMap**, o método **get** irá devolver **null**, caso contrário, o valor do mapeamento é devolvido como um objeto, convertido para **Integer** e atribuído em **i**
+
+No **if** é verificado se **i** é **nul**, caso seja, é realizado chamada para o método **put** de **map** para armazenar um **Integer** com valor 1 no **HashMap**, esse valor é o número de palavras que inicial com **Character**, se **i** não for **null**, significa que **Caracter** está no **HashMap**, por isso, é feito o incremento do valor de **Integer** em 1, atualizando o valor no **HashMap**.
+
+O método **geraSaidaMap** recebe como argumento um **Map** e atribui o seu conteúdo na variável **saida** utilizando o método **toString**.
+
+Posterior, é recuperado o número de valores no **Map** por meio do método **size** e depois é recuperado um **boolean** por meio do método **isEmpty** indicando se o **Map** está vazio.
+
+&nbsp;
+
+## **A Inteface Queue**
+
+---
+
+&nbsp;
+
+A **Queue** (Fila) segue o conceito **FIFO** (**First In, First Out**), mas é possível o uso de outras, tem como objetivo manter uma lista de tarefas a serem processadas de alguma maneira, além, de suportar todos os métodos padrões de uma Collection, ela também possui métodos adicionais para adicionar, extrair e revisar os elementos da fila.
+
+A classe responsável por implementar uma **Queue** é a **PriorityQueue**, seus elementos são ordenados pela ordem natural e seu objetivo é criar uma fila onde o elemento que tem prioridade para entrar, tem prioridade para sair (**Priority In, Priority Out**), ou seja, os elementos ordenados primeiro serão acessados primeiro, o que difere de uma fila do tipo **FIFO** (**Primeiro a entrar é o primeiro a sair**).
+
+Abaixo exemplo utilizando a classe **LinkedList**:
+
+~~~~Java
+import java.util.LinkedList;
+import java.util.Queue;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+
+public class Exemplo9{
+
+    String saida = "";
+
+    public Exemplo9(){
+        Queue<Integer> queue = new LinkedList<Integer>();
+        this.adicionarElemento(queue);
+        saida += "\n";
+        this.removerElemento(Queue);
+
+        JTextArea saidaArea = new JTextArea();
+        saidaArea.setText(saida);
+
+        JOptionPane.showMessageDialog(null, saidaArea, "Trabalhando com Queues", JOptionPane.INFORMATION_MESSAGE);
+
+        System.exit(0);
+    }
+
+    public static void main(String[] args){
+        new Exemplo9();
+    }
+
+    private void adicionarElemento(Queue qe){
+        int elemento = 10;
+        for(int i = elemento; i >= 0; i--){
+            saida += "Adicionando o elemento: " + i + " na fila\n";
+            qe.add(i);
+        }
+    }
+
+    private void removerElemento(Queue qe){
+        while(!qe.isEmpty()){
+            saida += "Removendo o elemento: " + qe.remove() + " da fila\n";
+        }
+    }
+}
+~~~~
+
+&nbsp;
+
+É declarado uma **Queue** que recebe uma instância de uma **LinkedList**, assim como um **ArrayList**, **LinkedList** é uma classe onde seus elementos são ordenados pela posição no índice exceto pelos elementos serem duplamente encadeados.
+
+Além dos métodos obtidos da interface **List**, esse encadeamento fornece métodos para ionserção ou remoção do início ou final tornando-se a melhor opção para implementações de pilha ou fila.
+
+O método **adicionarElemento()**, recebe como argumento uma **Queue** na qual são adicionados 6 elementos.
+
+Foi declarado uma variável **elemento** do tipo **int** e inicializada com o valor 5.
+
+Foi feito um laço **for** decrementando esse valor até 0 e adicionando o valor decrementado na fila, ou seja, o primeiro elemento a entrar na fila é o 5, o próximo é o 4, 3 e seguinte e assim sucessivamente decrementando e adicionando até 0.
+
+O método **removerElemento** também recebe como argumento uma **Queue** da qual serão removidos os elementos contidos nela.
+
+O laço **while** que enquanto a fila não for vazia (verificação realizada com o método **isEmpty()**) será removido um elemento ao utilizar o método **remove()**, esse método tem a finalidade de recuperar e remover um objeto da fila.
+
