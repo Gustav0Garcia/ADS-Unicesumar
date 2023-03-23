@@ -24,6 +24,7 @@ public class LocacaoMapa {
         l.cadastrarLocatario();
         l.mostrarLocatario();
         
-        JOptionPane.showMessageDialog(null, "                   Programa Finalizado!\n\nCurso: Análise e Desenvolvimento de Sistemas\nMatéria: Programação III\nAluno: Gustavo Garcia\n\n");
+        //Apresenta janela de encerrramento e minhas informações
+        JOptionPane.showMessageDialog(null, "                      Programa Finalizado!\n______________________________________\n\nCurso: Análise e Desenvolvimento de Sistemas\nMatéria: Programação III\nAluno: Gustavo Garcia\n\n");
     }    
 }

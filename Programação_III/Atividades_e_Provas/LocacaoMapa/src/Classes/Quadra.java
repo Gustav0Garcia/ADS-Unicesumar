@@ -16,21 +16,35 @@ public class Quadra {
     private String tipo;
     private int minuto;
     private double valorMinuto;
-    private double valorCalculado;
+    private double valorCalculado; //Variável que será utilizada para calcular o valor, com ou sem desconto de horas e com ou sem acrescimo de equipamento
     private String equipamento; //String para captura da resposta da necessidade de equipamento
     private char equip; //Char que irá receber por charAt a resposta da variável equipamento
     
     //Método que realiza cadastro apenas da quadra
     public void cadastrarQuadra(){
-        this.setNome(JOptionPane.showInputDialog("               Cadastro da quadra\nQuadra: "));
-        this.setTipo(JOptionPane.showInputDialog("               Cadastro da quadra\nTipo: "));
-        this.setValorMinuto(Integer.parseInt(JOptionPane.showInputDialog("               Cadastro da quadra\nValor do minuto: ")));
-        this.setMinuto(Integer.parseInt(JOptionPane.showInputDialog("               Cadastro da quadra\nTempo em minutos: ")));
-        //Variável equipamento recebendo a resposta
-        this.setEquipamento(JOptionPane.showInputDialog("                    Cadastro da quadra\nNecessita de Equipamento (S - Sim | N - Não): "));
-        //Variável equipe recebendo a resposta da variável equipamento através da utilização de charAt
-        this.equip = this.equipamento.charAt(0);
-        calcularValorLocacao();
+        this.setNome(JOptionPane.showInputDialog("               Cadastro da quadra\n________________________________\n\nQuadra: "));
+        this.setTipo(JOptionPane.showInputDialog("               Cadastro da quadra\n________________________________\n\nTipo: "));
+        //Tratativa para caso for inserido letras em vez de números
+        try{
+            this.setValorMinuto(Integer.parseInt(JOptionPane.showInputDialog("               Cadastro da quadra\n________________________________\n\nValor do minuto: ")));
+        }catch(Exception a){
+            JOptionPane.showMessageDialog(null, "Não foi possível converter o valor, será atribuído 5 ao valor do Minuto!\n\n");
+            this.setValorMinuto(5);
+        }finally{
+            //Tratativa para caso for inserido letras em vez de números
+            try{
+                this.setMinuto(Integer.parseInt(JOptionPane.showInputDialog("               Cadastro da quadra\n________________________________\n\nTempo em minutos: ")));
+            }catch(Exception b){
+                JOptionPane.showMessageDialog(null, "Não foi possível converter o valor, será atribuído o tempo de 60 minutos!\n\n");
+                this.setMinuto(60);               
+            }finally{
+                //Variável equipamento recebendo a resposta
+                this.setEquipamento(JOptionPane.showInputDialog("                    Cadastro da quadra\n____________________________________\n\nNecessita de Equipamento (S - Sim | N - Não): "));
+                //Variável equipe recebendo a resposta da variável equipamento através da utilização de charAt
+                this.equip = this.equipamento.charAt(0);
+                calcularValorLocacao();
+            }    
+        }    
     }
     
     //Método para calcular valor da locação, utilizando estrutura condicional, para aplicar desconto e o valor do equipamento
@@ -48,12 +62,6 @@ public class Quadra {
         }else{
             this.valorCalculado += 0;
         }
-
-    }
-    
-    //Método para apresentar resumo das informações da quadra
-    public void mostrarQuadra(){
-        JOptionPane.showMessageDialog(null, "Resumo da locação\n\nNome da quadra: " + this.getNome() + "\nTipo: " + this.getTipo() + "\nValor do minuto: R$ " + this.getValorMinuto() + "\n\n" + "Tempo em minutos: " + this.getMinuto() + "\nNecessita Equipamento: " + this.getEquip() + "\nValor calculado: R$" + this.getValorCalculado()+ "\n\n");
 
     }
     
